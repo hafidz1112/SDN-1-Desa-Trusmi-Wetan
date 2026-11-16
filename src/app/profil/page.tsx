@@ -30,14 +30,17 @@ export default async function ProfilPage() {
     <div className="py-12 sm:py-16 space-y-16">
       {/* Page Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl">
-          <span className="text-xs font-bold text-blue-700 uppercase tracking-wider block mb-1">
-            Profil Lembaga
-          </span>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="h-0.5 w-6 bg-amber-500 inline-block" />
+            <span className="text-xs font-bold tracking-widest text-[#0b3b2c] uppercase">
+              PROFIL LEMBAGA
+            </span>
+          </div>
+          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0b3b2c] tracking-tight">
             Profil SDN 1 Trusmi Wetan
           </h1>
-          <p className="text-sm sm:text-base text-slate-500 mt-2">
+          <p className="text-xs sm:text-sm text-slate-500 mt-2 max-w-2xl">
             Mengenal lebih dekat pimpinan sekolah, sejarah berdiri, serta landasan visi, misi, dan tujuan pendidikan kami.
           </p>
         </div>

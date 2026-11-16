@@ -12,14 +12,17 @@ export default async function IdentitasPage() {
   return (
     <div className="py-12 sm:py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-        <div>
-          <span className="text-xs font-bold text-blue-700 uppercase tracking-wider block mb-1">
-            Data Resmi
-          </span>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="h-0.5 w-6 bg-amber-500 inline-block" />
+            <span className="text-xs font-bold tracking-widest text-[#0b3b2c] uppercase">
+              DATA KELEMBAGAAN
+            </span>
+          </div>
+          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0b3b2c] tracking-tight">
             Identitas &amp; Akreditasi Sekolah
           </h1>
-          <p className="text-sm sm:text-base text-slate-500 mt-2">
+          <p className="text-xs sm:text-sm text-slate-500 mt-2">
             Data pokok kelembagaan resmi SDN 1 Trusmi Wetan berdasarkan penetapan Kementerian Pendidikan dan Kebudayaan.
           </p>
         </div>

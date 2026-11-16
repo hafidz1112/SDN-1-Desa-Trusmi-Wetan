@@ -7,9 +7,11 @@ let initialized = false;
 
 export function getDb(): Client {
   if (!client) {
-    const dbPath = path.resolve(process.cwd(), 'data', 'school.db');
+    const url = process.env.DATABASE_URL || `file:${path.resolve(process.cwd(), 'data', 'school.db')}`;
+    const authToken = process.env.DATABASE_AUTH_TOKEN;
     client = createClient({
-      url: `file:${dbPath}`,
+      url,
+      authToken,
     });
   }
   return client;

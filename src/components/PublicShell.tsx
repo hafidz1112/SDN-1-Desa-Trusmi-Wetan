@@ -14,9 +14,9 @@ export default function PublicShell({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-[#f8fafc] text-slate-800">
       <Header />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 bg-[#f8fafc]">{children}</main>
       <Footer />
     </div>
   );

@@ -61,7 +61,7 @@ export default async function SpmbPage() {
     <div className="py-12 sm:py-16 space-y-12">
       {/* Header Banner */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden">
+        <div className="bg-[#0b3b2c] rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden border border-emerald-800/40">
           <div className="absolute right-0 bottom-0 opacity-10 translate-x-12 translate-y-12 pointer-events-none">
             <GraduationCap className="w-96 h-96" />
           </div>
@@ -72,11 +72,11 @@ export default async function SpmbPage() {
               <span>Status SPMB: {isOpen ? 'PENDAFTARAN DIBUKA' : 'PENDAFTARAN DITUTUP'}</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-black font-serif tracking-tight leading-tight">
               Sistem Penerimaan Murid Baru (SPMB)
             </h1>
 
-            <p className="text-blue-100 text-sm sm:text-base leading-relaxed">
+            <p className="text-emerald-100/90 text-sm sm:text-base leading-relaxed">
               {settings.teks_pengantar ||
                 'Selamat datang di portal informasi resmi penerimaan peserta didik baru SDN 1 Trusmi Wetan. Seluruh proses pendaftaran tidak dipungut biaya (gratis).'}
             </p>
@@ -87,7 +87,7 @@ export default async function SpmbPage() {
                   href={`https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl font-bold text-xs shadow-md transition-all cursor-pointer"
+                  className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-black text-xs shadow-md transition-all cursor-pointer uppercase tracking-wider"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>Konsultasi Panitia via WhatsApp</span>
@@ -95,7 +95,7 @@ export default async function SpmbPage() {
               )}
               <Link
                 href="/hubungi-kami"
-                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-5 py-2.5 rounded-xl font-bold text-xs transition-all"
+                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-5 py-2.5 rounded-xl font-bold text-xs transition-all uppercase tracking-wider"
               >
                 <Clock className="w-4 h-4" />
                 <span>Lihat Jam Pelayanan</span>

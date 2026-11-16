@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full font-sans bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
+      <body className="min-h-full font-sans bg-[#f8fafc] text-slate-900 selection:bg-emerald-600 selection:text-white">
         <PublicShell>{children}</PublicShell>
       </body>
     </html>

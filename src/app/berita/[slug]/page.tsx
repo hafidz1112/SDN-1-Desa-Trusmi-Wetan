@@ -49,10 +49,10 @@ export default async function DetailBeritaPage({ params }: DetailBeritaProps) {
   return (
     <div className="py-12 sm:py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div>
+        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm">
           <Link
             href="/berita"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:text-blue-900 mb-6 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0b3b2c] hover:underline mb-6 transition-colors uppercase tracking-wider"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Kembali ke Warta &amp; Publikasi</span>
@@ -61,17 +61,17 @@ export default async function DetailBeritaPage({ params }: DetailBeritaProps) {
           <div className="flex items-center gap-3 mb-3">
             {item.tanggal && (
               <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-500">
-                <Calendar className="w-3.5 h-3.5 text-blue-600" />
+                <Calendar className="w-3.5 h-3.5 text-amber-500" />
                 {item.tanggal}
               </span>
             )}
             <span className="text-slate-300">•</span>
-            <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
+            <span className="text-[11px] font-bold text-[#0b3b2c] bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
               Warta Resmi
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
+          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0b3b2c] leading-tight">
             {item.judul}
           </h1>
         </div>

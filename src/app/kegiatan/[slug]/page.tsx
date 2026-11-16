@@ -33,10 +33,10 @@ export default async function DetailKegiatanPage({ params }: DetailKegiatanProps
   return (
     <div className="py-12 sm:py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div>
+        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm">
           <Link
             href="/kegiatan"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:text-blue-900 mb-6"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0b3b2c] hover:underline mb-6 uppercase tracking-wider"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Kembali ke Daftar Kegiatan</span>
@@ -45,18 +45,18 @@ export default async function DetailKegiatanPage({ params }: DetailKegiatanProps
           <div className="flex flex-wrap items-center gap-3 mb-3">
             {item.tanggal && (
               <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-500">
-                <Calendar className="w-3.5 h-3.5 text-blue-600" />
+                <Calendar className="w-3.5 h-3.5 text-amber-500" />
                 {item.tanggal}
               </span>
             )}
             {item.is_rutin === 1 && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
-                <CheckSquare className="w-3 h-3" /> Kegiatan Rutin
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#0b3b2c] text-white">
+                <CheckSquare className="w-3 h-3 text-amber-400" /> Kegiatan Rutin
               </span>
             )}
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
+          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0b3b2c] leading-tight">
             {item.judul}
           </h1>
         </div>

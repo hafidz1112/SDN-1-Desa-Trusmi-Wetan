@@ -40,26 +40,29 @@ export default async function PrestasiPage({ searchParams }: PrestasiPageProps) 
   return (
     <div className="py-12 sm:py-16 space-y-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-slate-200 pb-6">
+        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm flex flex-col sm:flex-row sm:items-end justify-between gap-6">
           <div>
-            <span className="text-xs font-bold text-amber-600 uppercase tracking-wider block mb-1">
-              Etalase Kejuaraan
-            </span>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="h-0.5 w-6 bg-amber-500 inline-block" />
+              <span className="text-xs font-bold tracking-widest text-[#0b3b2c] uppercase">
+                ETALASE KEJUARAAN
+              </span>
+            </div>
+            <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0b3b2c] tracking-tight">
               Prestasi Siswa &amp; Sekolah
             </h1>
-            <p className="text-sm sm:text-base text-slate-500 mt-2">
+            <p className="text-xs sm:text-sm text-slate-500 mt-2 max-w-2xl">
               Daftar pencapaian akademik dan non-akademik peserta didik SDN 1 Trusmi Wetan di berbagai ajang kompetisi.
             </p>
           </div>
 
           {/* Filter Level */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1">
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 shrink-0">
             <Link
               href="/prestasi"
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-colors ${
                 tingkat === ''
-                  ? 'bg-amber-500 text-slate-950 font-bold shadow-sm'
+                  ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
                   : 'bg-slate-100 text-slate-600 hover:text-slate-900'
               }`}
             >

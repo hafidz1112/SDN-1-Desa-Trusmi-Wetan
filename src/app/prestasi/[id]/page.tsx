@@ -33,17 +33,17 @@ export default async function DetailPrestasiPage({ params }: DetailPrestasiProps
   return (
     <div className="py-12 sm:py-16">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div>
+        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm">
           <Link
             href="/prestasi"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:text-blue-900 mb-6"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0b3b2c] hover:underline mb-6 uppercase tracking-wider"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Kembali ke Daftar Prestasi</span>
           </Link>
 
           <div className="flex items-center gap-2 mb-3">
-            <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-100 text-amber-900 text-xs font-bold rounded-full">
+            <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-500 text-slate-950 text-xs font-black rounded-full uppercase">
               <Trophy className="w-3.5 h-3.5" />
               <span>Tingkat {item.tingkat || 'Sekolah'}</span>
             </span>
@@ -54,7 +54,7 @@ export default async function DetailPrestasiPage({ params }: DetailPrestasiProps
             )}
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">
+          <h1 className="text-2xl sm:text-3xl font-black font-serif text-[#0b3b2c] leading-tight">
             {item.nama_prestasi}
           </h1>
         </div>

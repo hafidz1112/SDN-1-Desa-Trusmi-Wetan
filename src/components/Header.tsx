@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown, Phone, Mail, Clock, MapPin } from 'lucide-react';
+import { Menu, X, ChevronDown, Phone, Mail, Clock, MapPin, GraduationCap } from 'lucide-react';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -18,38 +18,53 @@ export default function Header() {
 
   return (
     <header className="w-full bg-white shadow-sm sticky top-0 z-50">
-      {/* Top Bar for School Contact */}
-      <div className="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+      {/* Top Bar matching reference: Dark Forest Green */}
+      <div className="bg-[#0b3b2c] text-emerald-100 text-[11px] py-2 px-4 border-b border-emerald-950/40">
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
-          <div className="flex items-center space-x-4">
-            <span className="flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-amber-400" />
-              Desa Trusmi Wetan, Kec. Plered, Kab. Cirebon
-            </span>
-            <span className="hidden sm:flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5 text-amber-400" />
-              Senin - Sabtu (07.00 - 12.10 WIB)
-            </span>
-          </div>
-          <div className="flex items-center space-x-3">
+          {/* Left contact info */}
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <a
               href="https://wa.me/6281234567890"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-amber-400 transition-colors flex items-center gap-1"
+              className="flex items-center gap-1.5 hover:text-amber-300 transition-colors"
             >
-              <Phone className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="hidden md:inline">WhatsApp:</span> 0812-3456-7890
+              <Phone className="w-3.5 h-3.5 text-amber-400" />
+              <span>(0231) 321890 / 0812-3456-7890</span>
             </a>
-            <span className="text-slate-600">|</span>
-            <Link href="/admin/login" className="hover:text-amber-400 text-slate-400 font-medium transition-colors">
-              Masuk Admin
+            <a
+              href="mailto:sdn1trusmiwetan@gmail.com"
+              className="hidden md:flex items-center gap-1.5 hover:text-amber-300 transition-colors"
+            >
+              <Mail className="w-3.5 h-3.5 text-amber-400" />
+              <span>sdn1trusmiwetan@gmail.com</span>
+            </a>
+            <span className="hidden lg:flex items-center gap-1.5 text-emerald-200/80">
+              <MapPin className="w-3.5 h-3.5 text-amber-400" />
+              <span>Desa Trusmi Wetan, Plered, Cirebon</span>
+            </span>
+          </div>
+
+          {/* Right utility links */}
+          <div className="flex items-center space-x-3">
+            <Link
+              href="/admin/login"
+              className="text-emerald-200 hover:text-amber-300 font-medium transition-colors text-[11px]"
+            >
+              Portal Admin
+            </Link>
+            <span className="text-emerald-800">|</span>
+            <Link
+              href="/spmb"
+              className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold px-3 py-1 rounded text-[11px] tracking-wider uppercase transition-colors shadow-xs"
+            >
+              SPMB 2026/2027
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Main Navbar */}
+      {/* Main Navbar: White Background with Elegant Typography */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo & School Name */}
@@ -65,21 +80,23 @@ export default function Header() {
               />
             </div>
             <div>
-              <span className="block text-lg font-bold text-slate-900 group-hover:text-blue-800 transition-colors leading-tight">
+              <span className="block text-xl font-black text-[#0b3b2c] tracking-tight group-hover:text-emerald-800 transition-colors font-serif leading-none">
                 SDN 1 TRUSMI WETAN
               </span>
-              <span className="block text-xs font-medium text-slate-500 tracking-wide">
-                Kecamatan Plered • Kabupaten Cirebon
+              <span className="block text-[11px] font-semibold text-slate-500 tracking-wider uppercase mt-1">
+                Kec. Plered • Kab. Cirebon
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden xl:flex items-center space-x-1 font-medium text-sm text-slate-700">
+          <nav className="hidden xl:flex items-center space-x-1 font-bold text-xs uppercase tracking-wider text-slate-700">
             <Link
               href="/"
               className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive('/') ? 'text-blue-700 bg-blue-50 font-semibold' : 'hover:text-blue-700 hover:bg-slate-50'
+                isActive('/') && pathname === '/'
+                  ? 'text-[#0b3b2c] bg-emerald-50/80 font-black border-b-2 border-[#0b3b2c]'
+                  : 'hover:text-[#0b3b2c] hover:bg-slate-50'
               }`}
             >
               Beranda
@@ -88,7 +105,9 @@ export default function Header() {
             <Link
               href="/profil"
               className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive('/profil') ? 'text-blue-700 bg-blue-50 font-semibold' : 'hover:text-blue-700 hover:bg-slate-50'
+                isActive('/profil')
+                  ? 'text-[#0b3b2c] bg-emerald-50/80 font-black border-b-2 border-[#0b3b2c]'
+                  : 'hover:text-[#0b3b2c] hover:bg-slate-50'
               }`}
             >
               Profil
@@ -97,7 +116,9 @@ export default function Header() {
             <Link
               href="/identitas"
               className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive('/identitas') ? 'text-blue-700 bg-blue-50 font-semibold' : 'hover:text-blue-700 hover:bg-slate-50'
+                isActive('/identitas')
+                  ? 'text-[#0b3b2c] bg-emerald-50/80 font-black border-b-2 border-[#0b3b2c]'
+                  : 'hover:text-[#0b3b2c] hover:bg-slate-50'
               }`}
             >
               Identitas
@@ -107,31 +128,31 @@ export default function Header() {
             <div className="relative group">
               <button
                 type="button"
-                className={`flex items-center gap-1 px-3 py-2 rounded-lg transition-colors ${
+                className={`flex items-center gap-1 px-3 py-2 rounded-lg transition-colors cursor-pointer ${
                   isActive('/kelas-guru') || isActive('/ekstrakurikuler') || isActive('/sarana-prasarana')
-                    ? 'text-blue-700 bg-blue-50 font-semibold'
-                    : 'hover:text-blue-700 hover:bg-slate-50'
+                    ? 'text-[#0b3b2c] bg-emerald-50/80 font-black border-b-2 border-[#0b3b2c]'
+                    : 'hover:text-[#0b3b2c] hover:bg-slate-50'
                 }`}
               >
-                Akademik
-                <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-blue-700 transition-transform group-hover:rotate-180" />
+                <span>Akademik</span>
+                <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#0b3b2c] transition-transform group-hover:rotate-180" />
               </button>
-              <div className="absolute left-0 mt-1 w-56 bg-white rounded-xl shadow-lg border border-slate-100 py-2 hidden group-hover:block transition-all z-50">
+              <div className="absolute left-0 mt-1 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2 hidden group-hover:block transition-all z-50">
                 <Link
                   href="/kelas-guru"
-                  className="block px-4 py-2.5 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700"
+                  className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-emerald-50 hover:text-[#0b3b2c]"
                 >
-                  Kelas &amp; Guru
+                  Rombel &amp; Tenaga Pendidik
                 </Link>
                 <Link
                   href="/ekstrakurikuler"
-                  className="block px-4 py-2.5 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700"
+                  className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-emerald-50 hover:text-[#0b3b2c]"
                 >
-                  Ekstrakurikuler
+                  Kegiatan Ekstrakurikuler
                 </Link>
                 <Link
                   href="/sarana-prasarana"
-                  className="block px-4 py-2.5 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700"
+                  className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-emerald-50 hover:text-[#0b3b2c]"
                 >
                   Sarana &amp; Prasarana
                 </Link>
@@ -141,7 +162,9 @@ export default function Header() {
             <Link
               href="/kegiatan"
               className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive('/kegiatan') ? 'text-blue-700 bg-blue-50 font-semibold' : 'hover:text-blue-700 hover:bg-slate-50'
+                isActive('/kegiatan')
+                  ? 'text-[#0b3b2c] bg-emerald-50/80 font-black border-b-2 border-[#0b3b2c]'
+                  : 'hover:text-[#0b3b2c] hover:bg-slate-50'
               }`}
             >
               Kegiatan
@@ -150,7 +173,9 @@ export default function Header() {
             <Link
               href="/prestasi"
               className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive('/prestasi') ? 'text-blue-700 bg-blue-50 font-semibold' : 'hover:text-blue-700 hover:bg-slate-50'
+                isActive('/prestasi')
+                  ? 'text-[#0b3b2c] bg-emerald-50/80 font-black border-b-2 border-[#0b3b2c]'
+                  : 'hover:text-[#0b3b2c] hover:bg-slate-50'
               }`}
             >
               Prestasi
@@ -159,7 +184,9 @@ export default function Header() {
             <Link
               href="/berita"
               className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive('/berita') ? 'text-blue-700 bg-blue-50 font-semibold' : 'hover:text-blue-700 hover:bg-slate-50'
+                isActive('/berita')
+                  ? 'text-[#0b3b2c] bg-emerald-50/80 font-black border-b-2 border-[#0b3b2c]'
+                  : 'hover:text-[#0b3b2c] hover:bg-slate-50'
               }`}
             >
               Berita
@@ -168,7 +195,9 @@ export default function Header() {
             <Link
               href="/galeri"
               className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive('/galeri') ? 'text-blue-700 bg-blue-50 font-semibold' : 'hover:text-blue-700 hover:bg-slate-50'
+                isActive('/galeri')
+                  ? 'text-[#0b3b2c] bg-emerald-50/80 font-black border-b-2 border-[#0b3b2c]'
+                  : 'hover:text-[#0b3b2c] hover:bg-slate-50'
               }`}
             >
               Galeri
@@ -177,22 +206,21 @@ export default function Header() {
             <Link
               href="/hubungi-kami"
               className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive('/hubungi-kami') ? 'text-blue-700 bg-blue-50 font-semibold' : 'hover:text-blue-700 hover:bg-slate-50'
+                isActive('/hubungi-kami')
+                  ? 'text-[#0b3b2c] bg-emerald-50/80 font-black border-b-2 border-[#0b3b2c]'
+                  : 'hover:text-[#0b3b2c] hover:bg-slate-50'
               }`}
             >
-              Hubungi Kami
+              Kontak
             </Link>
 
-            {/* SPMB Special Button */}
+            {/* SPMB Highlight Button */}
             <Link
               href="/spmb"
-              className={`ml-2 px-4 py-2 rounded-full font-semibold text-sm transition-all shadow-sm ${
-                isActive('/spmb')
-                  ? 'bg-amber-500 text-slate-900 shadow-amber-200'
-                  : 'bg-blue-700 hover:bg-blue-800 text-white hover:shadow-blue-200'
-              }`}
+              className="ml-3 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#0b3b2c] hover:bg-[#07291f] text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-md shadow-emerald-950/20"
             >
-              Informasi SPMB
+              <GraduationCap className="w-4 h-4 text-amber-400" />
+              <span>SPMB</span>
             </Link>
           </nav>
 
@@ -201,8 +229,8 @@ export default function Header() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               type="button"
-              className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none"
-              aria-label="Toggle menu navigasi"
+              className="p-2 rounded-lg text-slate-700 hover:text-[#0b3b2c] hover:bg-slate-100 focus:outline-none"
+              aria-label="Menu Navigasi"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -212,30 +240,32 @@ export default function Header() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="xl:hidden border-t border-slate-100 bg-white px-4 pt-3 pb-6 space-y-1 shadow-lg">
+        <div className="xl:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-1 shadow-lg max-h-[85vh] overflow-y-auto">
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}
-            className={`block px-3 py-2.5 rounded-lg text-base font-medium ${
-              isActive('/') ? 'text-blue-700 bg-blue-50 font-semibold' : 'text-slate-700 hover:bg-slate-50'
+            className={`block px-3 py-2 rounded-lg text-sm font-bold ${
+              isActive('/') && pathname === '/' ? 'bg-emerald-50 text-[#0b3b2c]' : 'text-slate-700 hover:bg-slate-50'
             }`}
           >
             Beranda
           </Link>
+
           <Link
             href="/profil"
             onClick={() => setMobileMenuOpen(false)}
-            className={`block px-3 py-2.5 rounded-lg text-base font-medium ${
-              isActive('/profil') ? 'text-blue-700 bg-blue-50 font-semibold' : 'text-slate-700 hover:bg-slate-50'
+            className={`block px-3 py-2 rounded-lg text-sm font-bold ${
+              isActive('/profil') ? 'bg-emerald-50 text-[#0b3b2c]' : 'text-slate-700 hover:bg-slate-50'
             }`}
           >
             Profil Sekolah
           </Link>
+
           <Link
             href="/identitas"
             onClick={() => setMobileMenuOpen(false)}
-            className={`block px-3 py-2.5 rounded-lg text-base font-medium ${
-              isActive('/identitas') ? 'text-blue-700 bg-blue-50 font-semibold' : 'text-slate-700 hover:bg-slate-50'
+            className={`block px-3 py-2 rounded-lg text-sm font-bold ${
+              isActive('/identitas') ? 'bg-emerald-50 text-[#0b3b2c]' : 'text-slate-700 hover:bg-slate-50'
             }`}
           >
             Identitas &amp; Akreditasi
@@ -243,33 +273,32 @@ export default function Header() {
 
           <div>
             <button
-              type="button"
               onClick={() => setAkademikOpen(!akademikOpen)}
-              className="w-full flex justify-between items-center px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50"
+              className="w-full flex justify-between items-center px-3 py-2 rounded-lg text-sm font-bold text-slate-700 hover:bg-slate-50"
             >
               <span>Akademik</span>
               <ChevronDown className={`w-4 h-4 transition-transform ${akademikOpen ? 'rotate-180' : ''}`} />
             </button>
             {akademikOpen && (
-              <div className="pl-6 space-y-1 mt-1 border-l-2 border-blue-200 ml-3">
+              <div className="pl-4 space-y-1 border-l-2 border-emerald-600 ml-3 my-1">
                 <Link
                   href="/kelas-guru"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-sm text-slate-600 hover:text-blue-700 hover:bg-blue-50"
+                  className="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-[#0b3b2c]"
                 >
-                  Kelas &amp; Guru
+                  Rombel &amp; Tenaga Pendidik
                 </Link>
                 <Link
                   href="/ekstrakurikuler"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-sm text-slate-600 hover:text-blue-700 hover:bg-blue-50"
+                  className="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-[#0b3b2c]"
                 >
                   Ekstrakurikuler
                 </Link>
                 <Link
                   href="/sarana-prasarana"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-sm text-slate-600 hover:text-blue-700 hover:bg-blue-50"
+                  className="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-[#0b3b2c]"
                 >
                   Sarana &amp; Prasarana
                 </Link>
@@ -280,56 +309,60 @@ export default function Header() {
           <Link
             href="/kegiatan"
             onClick={() => setMobileMenuOpen(false)}
-            className={`block px-3 py-2.5 rounded-lg text-base font-medium ${
-              isActive('/kegiatan') ? 'text-blue-700 bg-blue-50 font-semibold' : 'text-slate-700 hover:bg-slate-50'
+            className={`block px-3 py-2 rounded-lg text-sm font-bold ${
+              isActive('/kegiatan') ? 'bg-emerald-50 text-[#0b3b2c]' : 'text-slate-700 hover:bg-slate-50'
             }`}
           >
-            Kegiatan
+            Kegiatan Sekolah
           </Link>
+
           <Link
             href="/prestasi"
             onClick={() => setMobileMenuOpen(false)}
-            className={`block px-3 py-2.5 rounded-lg text-base font-medium ${
-              isActive('/prestasi') ? 'text-blue-700 bg-blue-50 font-semibold' : 'text-slate-700 hover:bg-slate-50'
+            className={`block px-3 py-2 rounded-lg text-sm font-bold ${
+              isActive('/prestasi') ? 'bg-emerald-50 text-[#0b3b2c]' : 'text-slate-700 hover:bg-slate-50'
             }`}
           >
-            Prestasi
+            Prestasi Siswa
           </Link>
+
           <Link
             href="/berita"
             onClick={() => setMobileMenuOpen(false)}
-            className={`block px-3 py-2.5 rounded-lg text-base font-medium ${
-              isActive('/berita') ? 'text-blue-700 bg-blue-50 font-semibold' : 'text-slate-700 hover:bg-slate-50'
+            className={`block px-3 py-2 rounded-lg text-sm font-bold ${
+              isActive('/berita') ? 'bg-emerald-50 text-[#0b3b2c]' : 'text-slate-700 hover:bg-slate-50'
             }`}
           >
-            Berita &amp; Pengumuman
+            Warta &amp; Berita
           </Link>
+
           <Link
             href="/galeri"
             onClick={() => setMobileMenuOpen(false)}
-            className={`block px-3 py-2.5 rounded-lg text-base font-medium ${
-              isActive('/galeri') ? 'text-blue-700 bg-blue-50 font-semibold' : 'text-slate-700 hover:bg-slate-50'
+            className={`block px-3 py-2 rounded-lg text-sm font-bold ${
+              isActive('/galeri') ? 'bg-emerald-50 text-[#0b3b2c]' : 'text-slate-700 hover:bg-slate-50'
             }`}
           >
-            Galeri Foto
+            Galeri Dokumentasi
           </Link>
+
           <Link
             href="/hubungi-kami"
             onClick={() => setMobileMenuOpen(false)}
-            className={`block px-3 py-2.5 rounded-lg text-base font-medium ${
-              isActive('/hubungi-kami') ? 'text-blue-700 bg-blue-50 font-semibold' : 'text-slate-700 hover:bg-slate-50'
+            className={`block px-3 py-2 rounded-lg text-sm font-bold ${
+              isActive('/hubungi-kami') ? 'bg-emerald-50 text-[#0b3b2c]' : 'text-slate-700 hover:bg-slate-50'
             }`}
           >
             Hubungi Kami
           </Link>
 
-          <div className="pt-2">
+          <div className="pt-3">
             <Link
               href="/spmb"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-center px-4 py-3 rounded-xl bg-blue-700 text-white font-semibold text-base shadow"
+              className="block w-full text-center py-2.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold text-xs uppercase tracking-wider shadow"
             >
-              Informasi SPMB 2027
+              Informasi SPMB 2026/2027
             </Link>
           </div>
         </div>
