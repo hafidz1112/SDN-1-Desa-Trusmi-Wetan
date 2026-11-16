@@ -3,6 +3,8 @@ import { Layers, Users, BookOpen, GraduationCap } from 'lucide-react';
 import ImageWithFallback from '@/components/ImageWithFallback';
 import { query } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 async function getClassesAndStaffData() {
   const [classes, staff] = await Promise.all([
     query(`

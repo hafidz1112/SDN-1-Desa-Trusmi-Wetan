@@ -5,6 +5,8 @@ import { Trophy, ArrowLeft, Award, Calendar, User } from 'lucide-react';
 import ImageWithFallback from '@/components/ImageWithFallback';
 import { queryOne } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 interface DetailPrestasiProps {
   params: Promise<{ id: string }>;
 }

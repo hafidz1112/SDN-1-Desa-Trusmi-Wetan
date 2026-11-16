@@ -5,6 +5,8 @@ import { Calendar, ArrowLeft, CheckSquare } from 'lucide-react';
 import ImageWithFallback from '@/components/ImageWithFallback';
 import { queryOne } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 interface DetailKegiatanProps {
   params: Promise<{ slug: string }>;
 }

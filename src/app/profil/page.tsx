@@ -3,6 +3,8 @@ import { Target, Compass, BookOpen, Clock, Award, ShieldCheck } from 'lucide-rea
 import ImageWithFallback from '@/components/ImageWithFallback';
 import { query, queryOne } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 async function getProfileData() {
   const [profile, missions] = await Promise.all([
     queryOne(`

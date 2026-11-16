@@ -15,6 +15,8 @@ import {
 } from 'lucide-react';
 import { query, queryOne } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 async function getSpmbData() {
   const [settings, requirements, schedules, brochures, contact, identity] = await Promise.all([
     queryOne('SELECT * FROM spmb_settings LIMIT 1'),

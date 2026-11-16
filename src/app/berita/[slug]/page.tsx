@@ -5,6 +5,8 @@ import { Calendar, ArrowLeft, Share2 } from 'lucide-react';
 import ImageWithFallback from '@/components/ImageWithFallback';
 import { query, queryOne } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 interface DetailBeritaProps {
   params: Promise<{ slug: string }>;
 }

@@ -11,6 +11,7 @@ interface ImageWithFallbackProps {
   width?: number;
   height?: number;
   priority?: boolean;
+  unoptimized?: boolean;
 }
 
 export default function ImageWithFallback({
@@ -21,11 +22,14 @@ export default function ImageWithFallback({
   width,
   height,
   priority = false,
+  unoptimized,
 }: ImageWithFallbackProps) {
   const [error, setError] = useState(false);
   const fallbackSrc = '/images/placeholder.svg';
 
   const imageSrc = !src || error ? fallbackSrc : src;
+  const isApiMedia = typeof imageSrc === 'string' && imageSrc.startsWith('/api/media');
+  const shouldUnoptimize = unoptimized ?? isApiMedia;
 
   if (fill) {
     return (
@@ -36,6 +40,7 @@ export default function ImageWithFallback({
         sizes="(max-width: 768px) 100vw, 50vw"
         className={className}
         priority={priority}
+        unoptimized={shouldUnoptimize}
         onError={() => setError(true)}
       />
     );
@@ -49,6 +54,7 @@ export default function ImageWithFallback({
       height={height || 400}
       className={className}
       priority={priority}
+      unoptimized={shouldUnoptimize}
       onError={() => setError(true)}
     />
   );

@@ -2,6 +2,8 @@ import React from 'react';
 import { Building2, Award, ShieldCheck, MapPin, ExternalLink, Hash } from 'lucide-react';
 import { queryOne } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 async function getIdentityData() {
   return await queryOne('SELECT * FROM school_identity LIMIT 1');
 }

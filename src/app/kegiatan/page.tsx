@@ -4,6 +4,8 @@ import { CalendarDays, ArrowRight, CheckSquare } from 'lucide-react';
 import ImageWithFallback from '@/components/ImageWithFallback';
 import { query } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 interface KegiatanPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }

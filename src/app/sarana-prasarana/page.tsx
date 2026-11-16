@@ -3,6 +3,8 @@ import { School, CheckCircle2 } from 'lucide-react';
 import ImageWithFallback from '@/components/ImageWithFallback';
 import { query } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 async function getFacilitiesData() {
   return await query(`
     SELECT f.*, m.file_path as foto_url

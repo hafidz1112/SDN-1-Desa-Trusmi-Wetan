@@ -28,6 +28,8 @@ import {
 import ImageWithFallback from '@/components/ImageWithFallback';
 import { query, queryOne } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 async function getHomeData() {
   const [beranda, identity, profile, spmb, news, achievements, activitiesRutin] =
     await Promise.all([
@@ -103,6 +105,7 @@ export default async function HomePage() {
               fill
               className="object-cover opacity-35"
               priority
+              unoptimized
             />
           </div>
         ) : (

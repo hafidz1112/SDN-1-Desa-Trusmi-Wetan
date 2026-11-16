@@ -4,6 +4,8 @@ import { Trophy, ArrowRight, Award } from 'lucide-react';
 import ImageWithFallback from '@/components/ImageWithFallback';
 import { query } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 interface PrestasiPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }

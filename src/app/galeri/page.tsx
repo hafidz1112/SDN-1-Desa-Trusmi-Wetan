@@ -1,6 +1,8 @@
 import React from 'react';
 import { Camera } from 'lucide-react';
 import { query } from '@/lib/db';
+
+export const dynamic = 'force-dynamic';
 import GalleryGrid from '@/components/GalleryGrid';
 
 async function getGalleryData() {

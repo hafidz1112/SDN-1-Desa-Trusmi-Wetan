@@ -3,6 +3,8 @@ import { Sparkles, Calendar, UserCheck } from 'lucide-react';
 import ImageWithFallback from '@/components/ImageWithFallback';
 import { query } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 async function getExtracurricularsData() {
   return await query(`
     SELECT e.*, m.file_path as foto_url

@@ -13,6 +13,8 @@ import {
 } from 'lucide-react';
 import { query, queryOne } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 async function getContactData() {
   const [contact, hours, identity] = await Promise.all([
     queryOne('SELECT * FROM contact_info LIMIT 1'),

@@ -4,6 +4,8 @@ import { Calendar, ArrowRight, FileText } from 'lucide-react';
 import ImageWithFallback from '@/components/ImageWithFallback';
 import { query } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 interface BeritaPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
