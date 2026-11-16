@@ -44,7 +44,7 @@ export default function AdminLoginPage() {
       }
 
       // Successful login
-      router.push('/admin');
+      window.location.href = '/admin';
     } catch {
       setErrorMsg('Gagal terhubung ke server');
       setLoading(false);

@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { getDb, initDb } from './db';
 
 const JWT_SECRET = new TextEncoder().encode(
-  process.env.AUTH_SECRET || 'sdn1-trusmi-wetan-super-secret-key-2026-cirebon'
+  process.env.JWT_SECRET || process.env.AUTH_SECRET || 'sdn1-trusmi-wetan-super-secret-key-2026-cirebon'
 );
 
 const COOKIE_NAME = 'admin_session';

@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
     // Successful login
     const userId = Number(user.id);
     await handleSuccessfulLogin(userId);
-    await createSession({
+    const token = await createSession({
       id: userId,
       username: user.username as string,
       nama: user.nama as string,
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
 
     await logAudit('ubah', 'Auth', userId, 'Super admin berhasil masuk ke dashboard');
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       message: 'Berhasil masuk ke dashboard',
       user: {
@@ -86,6 +86,16 @@ export async function POST(req: NextRequest) {
         nama: user.nama,
       },
     });
+
+    response.cookies.set('admin_session', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 30 * 60,
+      path: '/',
+    });
+
+    return response;
   } catch (error) {
     console.error('Login error:', error);
     return NextResponse.json({ success: false, message: 'Terjadi kesalahan pada sistem' }, { status: 500 });
