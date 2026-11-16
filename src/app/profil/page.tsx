@@ -35,11 +35,11 @@ export default async function ProfilPage() {
         <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
             <span className="h-0.5 w-6 bg-amber-500 inline-block" />
-            <span className="text-xs font-bold tracking-widest text-[#0b3b2c] uppercase">
+            <span className="text-xs font-bold tracking-widest text-[#1d4ed8] uppercase">
               PROFIL LEMBAGA
             </span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0b3b2c] tracking-tight">
+          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0f3b7a] tracking-tight">
             Profil SDN 1 Trusmi Wetan
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-2 max-w-2xl">

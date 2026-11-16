@@ -63,7 +63,7 @@ export default async function SpmbPage() {
     <div className="py-12 sm:py-16 space-y-12">
       {/* Header Banner */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#0b3b2c] rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden border border-emerald-800/40">
+        <div className="bg-[#0f3b7a] rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden border border-blue-800/40">
           <div className="absolute right-0 bottom-0 opacity-10 translate-x-12 translate-y-12 pointer-events-none">
             <GraduationCap className="w-96 h-96" />
           </div>
@@ -78,7 +78,7 @@ export default async function SpmbPage() {
               Sistem Penerimaan Murid Baru (SPMB)
             </h1>
 
-            <p className="text-emerald-100/90 text-sm sm:text-base leading-relaxed">
+            <p className="text-blue-100/90 text-sm sm:text-base leading-relaxed">
               {settings.teks_pengantar ||
                 'Selamat datang di portal informasi resmi penerimaan peserta didik baru SDN 1 Trusmi Wetan. Seluruh proses pendaftaran tidak dipungut biaya (gratis).'}
             </p>
@@ -269,32 +269,30 @@ export default async function SpmbPage() {
             )}
           </div>
 
-          {/* Posko Informasi & Alamat Sekolah */}
+          {/* Informasi Lokasi Sekolah */}
           <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
             <h3 className="font-bold text-slate-900 text-sm border-b border-slate-100 pb-3 flex items-center gap-2">
               <HelpCircle className="w-4 h-4 text-blue-700" />
-              <span>Lokasi Posko SPMB</span>
+              <span>Lokasi Sekolah</span>
             </h3>
 
             <div className="space-y-3 text-xs text-slate-600">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-blue-700 shrink-0 mt-0.5" />
                 <span>
-                  Ruang Panitia SPMB, {identity.nama_sekolah || 'SDN 1 Trusmi Wetan'}
+                  Ruang Pelayanan Informasi, {identity.nama_sekolah || 'SDN 1 Trusmi Wetan'}
                   <br />
-                  {identity.alamat_jalan || 'Jl. Trusmi Wetan'}, Desa {identity.desa || 'Trusmi Wetan'}, Kec. {identity.kecamatan || 'Plered'}, Kab. {identity.kabupaten || 'Cirebon'}
+                  {identity.alamat_jalan || 'Desa Trusmi Wetan, Kec. Plered, Kab. Cirebon, Jawa Barat 45154'}
                 </span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Clock className="w-4 h-4 text-blue-700 shrink-0" />
                 <span>Senin - Jumat: 08.00 - 12.00 WIB</span>
               </div>
-              {contact.telepon_publik && (
-                <div className="flex items-center gap-2.5">
-                  <PhoneCall className="w-4 h-4 text-blue-700 shrink-0" />
-                  <span>Telepon: {contact.telepon_publik}</span>
-                </div>
-              )}
+              <div className="flex items-center gap-2.5">
+                <HelpCircle className="w-4 h-4 text-blue-700 shrink-0" />
+                <span>Kepala Sekolah: Hj. Marpuah, S.Pd.</span>
+              </div>
             </div>
 
             <div className="pt-2">

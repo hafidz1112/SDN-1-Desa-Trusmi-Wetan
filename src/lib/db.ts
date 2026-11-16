@@ -60,7 +60,7 @@ export async function initDb() {
     CREATE TABLE IF NOT EXISTS school_identity (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       nama_sekolah TEXT NOT NULL DEFAULT 'SDN 1 Trusmi Wetan',
-      npsn TEXT DEFAULT '20215000',
+      npsn TEXT DEFAULT '20215577',
       status_sekolah TEXT DEFAULT 'Negeri',
       akreditasi TEXT DEFAULT 'A',
       alamat TEXT DEFAULT 'Desa Trusmi Wetan, Kec. Plered, Kabupaten Cirebon, Jawa Barat 45154',
@@ -335,7 +335,7 @@ export async function initDb() {
       INSERT INTO school_identity (nama_sekolah, npsn, status_sekolah, akreditasi, alamat, maps_url)
       VALUES (
         'SDN 1 Trusmi Wetan',
-        '20215000',
+        '20215577',
         'Negeri',
         'A',
         'Desa Trusmi Wetan, Kec. Plered, Kabupaten Cirebon, Jawa Barat 45154',

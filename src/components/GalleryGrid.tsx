@@ -42,7 +42,7 @@ export default function GalleryGrid({ albums, items }: GalleryGridProps) {
           onClick={() => setSelectedAlbum('all')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
             selectedAlbum === 'all'
-              ? 'bg-[#0b3b2c] text-white shadow-sm shadow-emerald-950/20'
+              ? 'bg-[#1d4ed8] text-white shadow-sm shadow-blue-950/20'
               : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
           }`}
         >
@@ -56,7 +56,7 @@ export default function GalleryGrid({ albums, items }: GalleryGridProps) {
               onClick={() => setSelectedAlbum(album.id)}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 selectedAlbum === album.id
-                  ? 'bg-[#0b3b2c] text-white shadow-sm shadow-emerald-950/20'
+                  ? 'bg-[#1d4ed8] text-white shadow-sm shadow-blue-950/20'
                   : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
               }`}
             >

@@ -47,11 +47,11 @@ export default async function KegiatanPage({ searchParams }: KegiatanPageProps) 
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="h-0.5 w-6 bg-amber-500 inline-block" />
-              <span className="text-xs font-bold tracking-widest text-[#0b3b2c] uppercase">
+              <span className="text-xs font-bold tracking-widest text-[#1d4ed8] uppercase">
                 DOKUMENTASI &amp; AGENDA
               </span>
             </div>
-            <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0b3b2c] tracking-tight">
+            <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0f3b7a] tracking-tight">
               Kegiatan Sekolah
             </h1>
             <p className="text-xs sm:text-sm text-slate-500 mt-2 max-w-2xl">
@@ -65,7 +65,7 @@ export default async function KegiatanPage({ searchParams }: KegiatanPageProps) 
               href="/kegiatan"
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-colors ${
                 rutin === ''
-                  ? 'bg-[#0b3b2c] text-white shadow-xs'
+                  ? 'bg-[#1d4ed8] text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -75,7 +75,7 @@ export default async function KegiatanPage({ searchParams }: KegiatanPageProps) 
               href="/kegiatan?rutin=1"
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-colors ${
                 rutin === '1'
-                  ? 'bg-[#0b3b2c] text-white shadow-xs'
+                  ? 'bg-[#1d4ed8] text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -85,7 +85,7 @@ export default async function KegiatanPage({ searchParams }: KegiatanPageProps) 
               href="/kegiatan?rutin=0"
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-colors ${
                 rutin === '0'
-                  ? 'bg-[#0b3b2c] text-white shadow-xs'
+                  ? 'bg-[#1d4ed8] text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >

@@ -54,7 +54,7 @@ export default async function DetailBeritaPage({ params }: DetailBeritaProps) {
         <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm">
           <Link
             href="/berita"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0b3b2c] hover:underline mb-6 transition-colors uppercase tracking-wider"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1d4ed8] hover:underline mb-6 transition-colors uppercase tracking-wider"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Kembali ke Warta &amp; Publikasi</span>
@@ -68,12 +68,12 @@ export default async function DetailBeritaPage({ params }: DetailBeritaProps) {
               </span>
             )}
             <span className="text-slate-300">•</span>
-            <span className="text-[11px] font-bold text-[#0b3b2c] bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+            <span className="text-[11px] font-bold text-[#1d4ed8] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
               Warta Resmi
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0b3b2c] leading-tight">
+          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0f3b7a] leading-tight">
             {item.judul}
           </h1>
         </div>

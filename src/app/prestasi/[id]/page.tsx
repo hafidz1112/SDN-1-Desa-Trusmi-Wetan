@@ -38,7 +38,7 @@ export default async function DetailPrestasiPage({ params }: DetailPrestasiProps
         <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm">
           <Link
             href="/prestasi"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0b3b2c] hover:underline mb-6 uppercase tracking-wider"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1d4ed8] hover:underline mb-6 uppercase tracking-wider"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Kembali ke Daftar Prestasi</span>
@@ -56,7 +56,7 @@ export default async function DetailPrestasiPage({ params }: DetailPrestasiProps
             )}
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-black font-serif text-[#0b3b2c] leading-tight">
+          <h1 className="text-2xl sm:text-3xl font-black font-serif text-[#0f3b7a] leading-tight">
             {item.nama_prestasi}
           </h1>
         </div>

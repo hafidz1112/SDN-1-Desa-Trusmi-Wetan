@@ -38,7 +38,7 @@ export default async function DetailKegiatanPage({ params }: DetailKegiatanProps
         <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm">
           <Link
             href="/kegiatan"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0b3b2c] hover:underline mb-6 uppercase tracking-wider"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1d4ed8] hover:underline mb-6 uppercase tracking-wider"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Kembali ke Daftar Kegiatan</span>
@@ -52,13 +52,13 @@ export default async function DetailKegiatanPage({ params }: DetailKegiatanProps
               </span>
             )}
             {item.is_rutin === 1 && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#0b3b2c] text-white">
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#0f3b7a] text-white">
                 <CheckSquare className="w-3 h-3 text-amber-400" /> Kegiatan Rutin
               </span>
             )}
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0b3b2c] leading-tight">
+          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0f3b7a] leading-tight">
             {item.judul}
           </h1>
         </div>

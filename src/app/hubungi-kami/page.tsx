@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import {
   MapPin,
   Phone,
@@ -9,7 +10,8 @@ import {
   Video,
   Info,
   Calendar,
-  Building
+  Building,
+  UserCheck
 } from 'lucide-react';
 import { query, queryOne } from '@/lib/db';
 
@@ -40,11 +42,11 @@ export default async function HubungiKamiPage() {
         <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
             <span className="h-0.5 w-6 bg-amber-500 inline-block" />
-            <span className="text-xs font-bold tracking-widest text-[#0b3b2c] uppercase">
+            <span className="text-xs font-bold tracking-widest text-[#1d4ed8] uppercase">
               LAYANAN &amp; KOMUNIKASI
             </span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0b3b2c] tracking-tight">
+          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0f3b7a] tracking-tight">
             Hubungi SDN 1 Trusmi Wetan
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-2 max-w-2xl">
@@ -88,32 +90,30 @@ export default async function HubungiKamiPage() {
               )}
             </div>
 
-            {/* Telepon Kantor */}
+            {/* Pimpinan / Kepala Sekolah */}
             <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
               <div>
                 <div className="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
-                  <Phone className="w-5 h-5" />
+                  <UserCheck className="w-5 h-5" />
                 </div>
-                <h3 className="font-bold text-slate-900 text-sm">Telepon Kantor</h3>
+                <h3 className="font-bold text-slate-900 text-sm">Kepala Sekolah</h3>
                 <p className="text-xs text-slate-500 mt-1">
-                  Saluran telepon resmi kantor tata usaha pada hari dan jam kerja.
+                  Pimpinan satuan pendidikan SDN 1 Trusmi Wetan.
                 </p>
-                <p className="text-sm font-extrabold text-slate-800 mt-3 font-mono">
-                  {contact.telepon_publik || 'Belum diisi'}
+                <p className="text-sm font-extrabold text-slate-900 mt-3">
+                  Hj. Marpuah, S.Pd.
                 </p>
               </div>
 
-              {contact.telepon_publik && (
-                <div className="mt-5 pt-4 border-t border-slate-100">
-                  <a
-                    href={`tel:${contact.telepon_publik.replace(/[^0-9+]/g, '')}`}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700"
-                  >
-                    <span>Hubungi Melalui Telepon</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-              )}
+              <div className="mt-5 pt-4 border-t border-slate-100">
+                <Link
+                  href="/profil"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700"
+                >
+                  <span>Lihat Sambutan Kepala Sekolah</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </Link>
+              </div>
             </div>
 
             {/* Email Resmi */}
