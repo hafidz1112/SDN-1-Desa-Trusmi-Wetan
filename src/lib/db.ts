@@ -45,9 +45,16 @@ export async function initDb() {
       size_bytes INTEGER NOT NULL,
       width INTEGER,
       height INTEGER,
+      data_base64 TEXT,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP
     );
   `);
+
+  try {
+    await db.execute('ALTER TABLE media ADD COLUMN data_base64 TEXT;');
+  } catch {
+    // Column already exists or table freshly created
+  }
 
   await db.execute(`
     CREATE TABLE IF NOT EXISTS school_identity (

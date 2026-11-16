@@ -45,53 +45,64 @@ export async function POST(req: NextRequest) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const randomHex = crypto.randomBytes(16).toString('hex');
-    const uploadsDir = path.resolve(process.cwd(), 'public', 'uploads');
-    await fs.mkdir(uploadsDir, { recursive: true });
-
-    let finalFilePath = '';
+    let processedBuffer = buffer;
     let finalSize = size;
     let finalWidth: number | null = null;
     let finalHeight: number | null = null;
     let finalMime = mime;
 
     if (!isDoc && mime.startsWith('image/')) {
-      // Process with sharp (resize max 1600px dimension, webp 80% quality)
-      const filename = `${randomHex}.webp`;
-      const fullPath = path.join(uploadsDir, filename);
+      try {
+        const metadata = await sharp(buffer).metadata();
+        processedBuffer = await sharp(buffer)
+          .rotate() // Auto-orient from EXIF
+          .resize(1600, 1600, { fit: 'inside', withoutEnlargement: true })
+          .webp({ quality: 80 })
+          .toBuffer();
 
-      const processed = await sharp(buffer)
-        .rotate() // Auto-orient from EXIF
-        .resize(1600, 1600, { fit: 'inside', withoutEnlargement: true })
-        .webp({ quality: 80 })
-        .toBuffer();
-
-      await fs.writeFile(fullPath, processed);
-      const metadata = await sharp(processed).metadata();
-
-      finalFilePath = `/uploads/${filename}`;
-      finalSize = processed.length;
-      finalWidth = metadata.width || null;
-      finalHeight = metadata.height || null;
-      finalMime = 'image/webp';
-    } else {
-      // For PDF or direct docs
-      const ext = path.extname(originalName) || (mime === 'application/pdf' ? '.pdf' : '.bin');
-      const filename = `${randomHex}${ext}`;
-      const fullPath = path.join(uploadsDir, filename);
-      await fs.writeFile(fullPath, buffer);
-      finalFilePath = `/uploads/${filename}`;
+        finalMime = 'image/webp';
+        finalSize = processedBuffer.length;
+        const newMeta = await sharp(processedBuffer).metadata();
+        finalWidth = newMeta.width || metadata.width || null;
+        finalHeight = newMeta.height || metadata.height || null;
+      } catch (sharpError) {
+        console.warn('Sharp compression warning (falling back to original buffer):', sharpError);
+        processedBuffer = buffer;
+        finalSize = buffer.length;
+        finalMime = mime;
+      }
     }
+
+    // Convert to base64 for persistent cloud storage in Turso
+    const base64Data = processedBuffer.toString('base64');
 
     await initDb();
     const db = getDb();
     const insertRes = await db.execute({
-      sql: `INSERT INTO media (file_path, original_name, mime_type, size_bytes, width, height)
-            VALUES (?, ?, ?, ?, ?, ?)`,
-      args: [finalFilePath, originalName, finalMime, finalSize, finalWidth, finalHeight],
+      sql: `INSERT INTO media (file_path, original_name, mime_type, size_bytes, width, height, data_base64)
+            VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      args: ['pending', originalName, finalMime, finalSize, finalWidth, finalHeight, base64Data],
     });
 
     const mediaId = Number(insertRes.lastInsertRowid);
+    const finalFilePath = `/api/media/${mediaId}`;
+
+    await db.execute({
+      sql: `UPDATE media SET file_path = ? WHERE id = ?`,
+      args: [finalFilePath, mediaId],
+    });
+
+    // Optionally cache to local disk if running on writable environment (ignored if on read-only serverless)
+    try {
+      const randomHex = crypto.randomBytes(16).toString('hex');
+      const uploadsDir = path.resolve(process.cwd(), 'public', 'uploads');
+      await fs.mkdir(uploadsDir, { recursive: true });
+      const ext = finalMime === 'image/webp' ? '.webp' : path.extname(originalName) || (mime === 'application/pdf' ? '.pdf' : '.bin');
+      const filename = `${randomHex}${ext}`;
+      await fs.writeFile(path.join(uploadsDir, filename), processedBuffer);
+    } catch {
+      // In read-only serverless filesystems (e.g. Vercel), disk cache is skipped safely
+    }
 
     return NextResponse.json({
       success: true,
