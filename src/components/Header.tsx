@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -9,7 +9,20 @@ import { Menu, X, ChevronDown, Mail, MapPin, GraduationCap, UserCheck } from 'lu
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [akademikOpen, setAkademikOpen] = useState(false);
+  const [akademikDesktopOpen, setAkademikDesktopOpen] = useState(false);
+  const akademikRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (!akademikDesktopOpen) return;
+    const handleClickOutside = (event: MouseEvent) => {
+      if (akademikRef.current && !akademikRef.current.contains(event.target as Node)) {
+        setAkademikDesktopOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [akademikDesktopOpen]);
 
   const isActive = (path: string) => {
     if (path === '/') return pathname === '/';
@@ -120,38 +133,46 @@ export default function Header() {
             </Link>
 
             {/* Akademik Dropdown */}
-            <div className="relative group">
+            <div className="relative" ref={akademikRef}>
               <button
                 type="button"
+                onClick={() => setAkademikDesktopOpen((prev) => !prev)}
                 className={`flex items-center gap-1 px-3 py-2 rounded-lg transition-colors cursor-pointer ${
                   isActive('/kelas-guru') || isActive('/ekstrakurikuler') || isActive('/sarana-prasarana')
                     ? 'text-[#1d4ed8] bg-blue-50/90 font-black border-b-2 border-[#1d4ed8]'
                     : 'hover:text-[#1d4ed8] hover:bg-slate-50'
                 }`}
+                aria-expanded={akademikDesktopOpen}
+                aria-haspopup="menu"
               >
                 <span>Akademik</span>
-                <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#1d4ed8] transition-transform group-hover:rotate-180" />
+                <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform ${akademikDesktopOpen ? 'text-[#1d4ed8] rotate-180' : ''}`} />
               </button>
-              <div className="absolute left-0 mt-1 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2 hidden group-hover:block transition-all z-50">
-                <Link
-                  href="/kelas-guru"
-                  className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-[#1d4ed8]"
-                >
-                  Rombel &amp; Tenaga Pendidik
-                </Link>
-                <Link
-                  href="/ekstrakurikuler"
-                  className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-[#1d4ed8]"
-                >
-                  Kegiatan Ekstrakurikuler
-                </Link>
-                <Link
-                  href="/sarana-prasarana"
-                  className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-[#1d4ed8]"
-                >
-                  Sarana &amp; Prasarana
-                </Link>
-              </div>
+              {akademikDesktopOpen && (
+                <div className="absolute left-0 mt-1 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2 transition-all z-50">
+                  <Link
+                    href="/kelas-guru"
+                    onClick={() => setAkademikDesktopOpen(false)}
+                    className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-[#1d4ed8]"
+                  >
+                    Rombel &amp; Tenaga Pendidik
+                  </Link>
+                  <Link
+                    href="/ekstrakurikuler"
+                    onClick={() => setAkademikDesktopOpen(false)}
+                    className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-[#1d4ed8]"
+                  >
+                    Kegiatan Ekstrakurikuler
+                  </Link>
+                  <Link
+                    href="/sarana-prasarana"
+                    onClick={() => setAkademikDesktopOpen(false)}
+                    className="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-[#1d4ed8]"
+                  >
+                    Sarana &amp; Prasarana
+                  </Link>
+                </div>
+              )}
             </div>
 
             <Link
