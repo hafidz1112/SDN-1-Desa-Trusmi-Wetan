@@ -367,16 +367,25 @@ export async function initDb() {
     );
   `);
 
+  // Ensure role column exists for user management
+  try {
+    await db.execute("ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'admin';");
+  } catch {
+    // Column already exists
+  }
+  await db.execute("UPDATE users SET role = 'admin' WHERE role IS NULL OR role = '';");
   // Seed default super admin if not exists
   const userCheck = await db.execute('SELECT COUNT(*) as cnt FROM users');
   if (Number(userCheck.rows[0].cnt) === 0) {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync('AdminTrusmi123!', salt);
     await db.execute({
-      sql: 'INSERT INTO users (username, nama, password_hash) VALUES (?, ?, ?)',
-      args: ['admin', 'Pak Niko Rindi Mulyana', hash],
+      sql: 'INSERT INTO users (username, nama, password_hash, role) VALUES (?, ?, ?, ?)',
+      args: ['admin', 'Pak Niko Rindi Mulyana', hash, 'super_admin'],
     });
   }
+  // Ensure seeded account is super admin
+  await db.execute("UPDATE users SET role = 'super_admin' WHERE username = 'admin';");
 
   // Seed single records if empty
   const identityCheck = await db.execute('SELECT COUNT(*) as cnt FROM school_identity');
