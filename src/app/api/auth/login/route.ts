@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
     // 4. Lapisan Keempat: Eksekusi Query Parameterized (Kekebalan Mutlak Terhadap SQL Injection)
     const db = getDb();
     const res = await db.execute({
-      sql: 'SELECT id, username, nama, password_hash FROM users WHERE username = ? LIMIT 1',
+      sql: 'SELECT id, username, nama, password_hash, role FROM users WHERE username = ? LIMIT 1',
       args: [cleanUsername],
     });
 
@@ -180,6 +180,7 @@ export async function POST(req: NextRequest) {
       id: userId,
       username: user.username as string,
       nama: user.nama as string,
+      role: ((user.role as string) as 'super_admin' | 'admin') || 'admin',
     });
 
     await logAudit(

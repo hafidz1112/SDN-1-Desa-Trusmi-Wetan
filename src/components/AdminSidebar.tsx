@@ -106,7 +106,8 @@ export default function AdminSidebar({ onCloseMobile }: SidebarProps) {
     {
       title: 'Sistem',
       items: [
-        { label: 'Ubah Kata Sandi', href: '/admin/kata-sandi', icon: KeyRound },
+        { label: 'Manajemen User', href: '/admin/users', icon: Users },
+{ label: 'Ubah Kata Sandi', href: '/admin/kata-sandi', icon: KeyRound },
         { label: 'Catatan Aktivitas', href: '/admin/audit-logs', icon: History },
       ],
     },

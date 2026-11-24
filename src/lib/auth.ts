@@ -9,10 +9,13 @@ const JWT_SECRET = new TextEncoder().encode(
 
 const COOKIE_NAME = 'admin_session';
 
+export type UserRole = 'super_admin' | 'admin';
+
 export interface AdminUser {
   id: number;
   username: string;
   nama: string;
+  role: UserRole;
 }
 
 export async function hashPassword(plainText: string): Promise<string> {
@@ -29,6 +32,7 @@ export async function createSession(user: AdminUser): Promise<string> {
     id: user.id,
     username: user.username,
     nama: user.nama,
+    role: user.role,
   })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
@@ -55,10 +59,19 @@ export async function getSession(): Promise<AdminUser | null> {
   try {
     const verified = await jwtVerify(token, JWT_SECRET);
     const payload = verified.payload as unknown as AdminUser;
+    await initDb();
+    const db = getDb();
+    const res = await db.execute({
+      sql: 'SELECT username, nama, role FROM users WHERE id = ? LIMIT 1',
+      args: [payload.id],
+    });
+    if (res.rows.length === 0) return null;
+    const row = res.rows[0];
     return {
       id: payload.id,
-      username: payload.username,
-      nama: payload.nama,
+      username: (row.username as string) || payload.username,
+      nama: (row.nama as string) || payload.nama,
+      role: ((row.role as string) as UserRole) || payload.role || 'admin',
     };
   } catch {
     return null;
