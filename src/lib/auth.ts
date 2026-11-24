@@ -70,10 +70,16 @@ export async function destroySession() {
   cookieStore.delete(COOKIE_NAME);
 }
 
-export async function checkRateLimitAndLock(): Promise<{ isLocked: boolean; remainingMinutes?: number }> {
+export async function checkRateLimitAndLock(username?: string): Promise<{ isLocked: boolean; remainingMinutes?: number }> {
   await initDb();
   const db = getDb();
-  const res = await db.execute('SELECT failed_attempts, locked_until FROM users LIMIT 1');
+
+  const querySql = username
+    ? 'SELECT id, failed_attempts, locked_until FROM users WHERE username = ? LIMIT 1'
+    : 'SELECT id, failed_attempts, locked_until FROM users LIMIT 1';
+  const queryArgs = username ? [username] : [];
+
+  const res = await db.execute({ sql: querySql, args: queryArgs });
   if (res.rows.length === 0) return { isLocked: false };
 
   const row = res.rows[0];
@@ -88,34 +94,50 @@ export async function checkRateLimitAndLock(): Promise<{ isLocked: boolean; rema
 
   // If lock expired, reset
   if (lockedUntil && lockedUntil <= now) {
-    await db.execute('UPDATE users SET failed_attempts = 0, locked_until = NULL');
+    await db.execute({
+      sql: 'UPDATE users SET failed_attempts = 0, locked_until = NULL WHERE id = ?',
+      args: [row.id],
+    });
   }
 
   return { isLocked: false };
 }
 
-export async function handleFailedLogin(): Promise<{ lockedNow: boolean }> {
+export async function handleFailedLogin(username?: string): Promise<{ lockedNow: boolean; remainingMinutes?: number }> {
   await initDb();
   const db = getDb();
-  const res = await db.execute('SELECT id, failed_attempts FROM users LIMIT 1');
+
+  const querySql = username
+    ? 'SELECT id, failed_attempts FROM users WHERE username = ? LIMIT 1'
+    : 'SELECT id, failed_attempts FROM users LIMIT 1';
+  const queryArgs = username ? [username] : [];
+
+  const res = await db.execute({ sql: querySql, args: queryArgs });
   if (res.rows.length === 0) return { lockedNow: false };
 
-  const currentAttempts = (Number(res.rows[0].failed_attempts) || 0) + 1;
-  if (currentAttempts >= 5) {
-    const lockDuration = new Date(Date.now() + 15 * 60 * 1000).toISOString(); // 15 mins lock (FR-ADM-003)
+  const row = res.rows[0];
+  const currentAttempts = (Number(row.failed_attempts) || 0) + 1;
+  const maxAttempts = 5;
+
+  if (currentAttempts >= maxAttempts) {
+    const lockMinutes = 15;
+    const lockDuration = new Date(Date.now() + lockMinutes * 60 * 1000).toISOString(); // 15 mins lock (FR-ADM-003)
     await db.execute({
       sql: 'UPDATE users SET failed_attempts = ?, locked_until = ? WHERE id = ?',
-      args: [currentAttempts, lockDuration, res.rows[0].id],
+      args: [currentAttempts, lockDuration, row.id],
     });
-    return { lockedNow: true };
+    return { lockedNow: true, remainingMinutes: lockMinutes };
   } else {
     await db.execute({
       sql: 'UPDATE users SET failed_attempts = ? WHERE id = ?',
-      args: [currentAttempts, res.rows[0].id],
+      args: [currentAttempts, row.id],
     });
     return { lockedNow: false };
   }
 }
+
+// Dummy hash for constant-time comparison to prevent username enumeration via timing attacks
+export const DUMMY_HASH = '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy';
 
 export async function handleSuccessfulLogin(userId: number) {
   await initDb();

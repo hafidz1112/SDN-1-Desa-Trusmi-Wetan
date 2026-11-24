@@ -49,40 +49,42 @@ export default function Header() {
 
   return (
     <header className="w-full bg-white shadow-sm sticky top-0 z-50">
-      {/* Top Utility Bar: Primary Navy Blue */}
+      {/* Top Utility Bar: Primary Navy Blue (Selalu 1 Baris Sejajar di Semua Layar) */}
       <div className="bg-[#0f3b7a] text-blue-100 text-[10px] sm:text-[11px] py-1.5 sm:py-2 px-3 sm:px-4 border-b border-blue-950/40">
-        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-1.5 sm:gap-2">
+        <div className="max-w-7xl mx-auto flex justify-between items-center gap-2">
           {/* Left contact info: Kepala Sekolah & Email & Location */}
-          <div className="flex flex-wrap items-center gap-3 sm:gap-6">
-            <span className="flex items-center gap-1.5 text-blue-50 font-medium">
+          <div className="flex items-center gap-1.5 sm:gap-6 min-w-0 flex-1">
+            <span className="flex items-center gap-1 sm:gap-1.5 text-blue-50 font-medium truncate min-w-0">
               <UserCheck className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span>Kepala Sekolah: Hj. Marpuah, S.Pd.</span>
+              <span className="truncate">
+                <span className="hidden sm:inline">Kepala Sekolah: </span>Hj. Marpuah, S.Pd.
+              </span>
             </span>
             <a
               href="mailto:sdn1trusmiwetan@gmail.com"
-              className="hidden md:flex items-center gap-1.5 hover:text-amber-300 transition-colors"
+              className="hidden md:flex items-center gap-1.5 hover:text-amber-300 transition-colors shrink-0"
             >
               <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
               <span>sdn1trusmiwetan@gmail.com</span>
             </a>
-            <span className="hidden lg:flex items-center gap-1.5 text-blue-200/80">
+            <span className="hidden lg:flex items-center gap-1.5 text-blue-200/80 shrink-0">
               <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
               <span>Desa Trusmi Wetan, Plered, Cirebon</span>
             </span>
           </div>
 
           {/* Right utility links */}
-          <div className="flex items-center space-x-2 sm:space-x-3">
+          <div className="flex items-center space-x-1.5 sm:space-x-3 shrink-0">
             <Link
               href="/admin/login"
-              className="text-blue-200 hover:text-amber-300 font-medium transition-colors text-[10px] sm:text-[11px]"
+              className="text-blue-200 hover:text-amber-300 font-medium transition-colors text-[10px] sm:text-[11px] whitespace-nowrap"
             >
               Portal Admin
             </Link>
             <span className="text-blue-400/40">|</span>
             <Link
               href="/spmb"
-              className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-md text-[10px] sm:text-[11px] tracking-wider uppercase transition-colors shadow-xs"
+              className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold px-2 py-0.5 sm:px-3 sm:py-1 rounded text-[9.5px] sm:text-[11px] tracking-wider uppercase transition-colors shadow-xs whitespace-nowrap"
             >
               SPMB 2026/2027
             </Link>

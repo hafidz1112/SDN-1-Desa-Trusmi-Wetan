@@ -66,31 +66,41 @@ export default function AdminSidebar({ onCloseMobile }: SidebarProps) {
       ],
     },
     {
-      title: 'Data Tunggal (Profil)',
+      title: 'Profil Sekolah',
       items: [
         { label: 'Identitas Sekolah', href: '/admin/identitas', icon: Building2 },
-        { label: 'Jam Operasional', href: '/admin/jam-operasional', icon: Clock },
         { label: 'Profil & Sambutan', href: '/admin/profil', icon: UserCheck },
+        { label: 'Poin Visi & Misi', href: '/admin/misi', icon: Target },
         { label: 'Pengaturan Beranda', href: '/admin/beranda', icon: Home },
+        { label: 'Jam Operasional', href: '/admin/jam-operasional', icon: Clock },
         { label: 'Kontak & Medsos', href: '/admin/kontak', icon: PhoneCall },
-        { label: 'Pengaturan SPMB', href: '/admin/spmb-pengaturan', icon: GraduationCap },
       ],
     },
     {
-      title: 'Koleksi Konten',
+      title: 'Penerimaan Siswa (SPMB)',
+      items: [
+        { label: 'Pengaturan Status SPMB', href: '/admin/spmb-pengaturan', icon: GraduationCap },
+        { label: 'Jadwal Pelaksanaan SPMB', href: '/admin/spmb-jadwal', icon: CalendarCheck },
+        { label: 'Persyaratan Pendaftaran', href: '/admin/spmb-persyaratan', icon: ClipboardList },
+        { label: 'Pamflet & Brosur SPMB', href: '/admin/pamflet', icon: FileSpreadsheet },
+      ],
+    },
+    {
+      title: 'Publikasi & Konten',
       items: [
         { label: 'Berita & Pengumuman', href: '/admin/berita', icon: FileText },
-        { label: 'Prestasi', href: '/admin/prestasi', icon: Trophy },
+        { label: 'Prestasi Siswa', href: '/admin/prestasi', icon: Trophy },
         { label: 'Kegiatan Sekolah', href: '/admin/kegiatan', icon: CalendarDays },
         { label: 'Galeri Foto', href: '/admin/galeri', icon: Images },
-        { label: 'Persyaratan SPMB', href: '/admin/spmb-persyaratan', icon: ClipboardList },
-        { label: 'Jadwal SPMB', href: '/admin/spmb-jadwal', icon: CalendarCheck },
-        { label: 'Pamflet SPMB', href: '/admin/pamflet', icon: FileSpreadsheet },
-        { label: 'Poin Misi', href: '/admin/misi', icon: Target },
+      ],
+    },
+    {
+      title: 'Akademik & Fasilitas',
+      items: [
+        { label: 'Guru & Tenaga Pendidik', href: '/admin/guru', icon: Users },
+        { label: 'Kelas & Rombel', href: '/admin/kelas', icon: Layers },
         { label: 'Ekstrakurikuler', href: '/admin/ekstrakurikuler', icon: Sparkles },
         { label: 'Sarana & Prasarana', href: '/admin/fasilitas', icon: School },
-        { label: 'Guru & Staf', href: '/admin/guru', icon: Users },
-        { label: 'Kelas & Rombel', href: '/admin/kelas', icon: Layers },
       ],
     },
     {

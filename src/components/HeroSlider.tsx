@@ -121,25 +121,43 @@ export default function HeroSlider({
   };
 
   const handleTouchEnd = () => {
-    if (touchStartX.current === null || touchEndX.current === null) return;
-    const distance = touchStartX.current - touchEndX.current;
-    const minSwipeDistance = 45;
-    if (distance > minSwipeDistance) {
-      nextSlide();
-    } else if (distance < -minSwipeDistance) {
-      prevSlide();
+    if (touchStartX.current !== null && touchEndX.current !== null) {
+      const distance = touchStartX.current - touchEndX.current;
+      const minSwipeDistance = 40;
+      if (distance > minSwipeDistance) {
+        nextSlide();
+      } else if (distance < -minSwipeDistance) {
+        prevSlide();
+      }
     }
     touchStartX.current = null;
     touchEndX.current = null;
+    // Always make sure autoplay is active after touch interaction on mobile
+    setIsPaused(false);
   };
 
+  // Only pause when real mouse hover is supported on desktop
+  const handleMouseEnter = () => {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
+      setIsPaused(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsPaused(false);
+  };
+
+  // Automatic slide transition every 5 seconds
   useEffect(() => {
-    if (isPaused || effectiveSlides.length <= 1) return;
+    if (effectiveSlides.length <= 1) return;
+    if (isPaused) return;
+
     const timer = setInterval(() => {
-      nextSlide();
-    }, 6000);
+      setCurrentIndex((prev) => (prev === effectiveSlides.length - 1 ? 0 : prev + 1));
+    }, 5000);
+
     return () => clearInterval(timer);
-  }, [isPaused, nextSlide, effectiveSlides.length]);
+  }, [isPaused, effectiveSlides.length]);
 
   const current = effectiveSlides[activeIndex];
   const BadgeIcon = current.badgeIcon;
@@ -148,8 +166,8 @@ export default function HeroSlider({
     <section
       aria-label="Hero Carousel"
       className="relative bg-[#071933] text-white min-h-[calc(100svh-90px)] min-h-[calc(100dvh-90px)] sm:min-h-[620px] lg:min-h-[680px] flex items-center overflow-hidden"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -172,8 +190,11 @@ export default function HeroSlider({
         <div className="absolute inset-0 bg-gradient-to-r from-[#071933]/95 via-[#0c2a54]/80 to-transparent" />
       </div>
 
-      {/* Main Slide Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-28 w-full flex flex-col justify-center min-h-[calc(100svh-90px)] min-h-[calc(100dvh-90px)] sm:min-h-0">
+      {/* Main Slide Content with smooth transition key */}
+      <div
+        key={`slide-${current.id}-${activeIndex}`}
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-28 w-full flex flex-col justify-center min-h-[calc(100svh-90px)] min-h-[calc(100dvh-90px)] sm:min-h-0"
+      >
         <div className="max-w-2xl space-y-4 sm:space-y-6 animate-fadeIn pb-10 sm:pb-0">
           <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-blue-900/60 border border-blue-400/30 text-amber-300 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase shadow-sm">
             <BadgeIcon className="w-3.5 h-3.5 text-amber-400 shrink-0" />

@@ -149,48 +149,48 @@ export default async function HomePage() {
 
       {/* 2. FLOATING 4-FEATURE BAR (Primary Blue, 4 Kolom) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 sm:-mt-14 relative z-30">
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-200/90 py-3.5 px-3 sm:py-5 sm:px-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-0 lg:divide-x divide-slate-100">
+        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl shadow-slate-900/6 border border-slate-200/90 py-5 px-4 sm:py-6 sm:px-6 lg:py-8 lg:px-8 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-0 lg:divide-x divide-slate-100">
           {/* Feature 1 */}
-          <div className="flex items-center gap-2.5 sm:gap-3.5 lg:px-4 p-1 sm:p-0">
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-blue-50 text-[#1d4ed8] flex items-center justify-center shrink-0 border border-blue-100">
-              <Monitor className="w-4 h-4 sm:w-5 sm:h-5 text-[#1d4ed8]" />
+          <div className="flex items-center gap-3 sm:gap-4 lg:gap-5 lg:px-6 p-1 sm:p-2 lg:p-0">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl sm:rounded-2xl bg-blue-50 text-[#1d4ed8] flex items-center justify-center shrink-0 border border-blue-100/80 shadow-xs">
+              <Monitor className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-[#1d4ed8]" />
             </div>
             <div className="min-w-0">
-              <h4 className="text-[11px] sm:text-xs font-black text-slate-900 leading-tight truncate sm:overflow-visible">Ruang Kelas Nyaman</h4>
-              <p className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5 truncate">Fasilitas belajar representatif</p>
+              <h4 className="text-xs sm:text-sm lg:text-base font-extrabold text-slate-900 leading-tight">Ruang Kelas Nyaman</h4>
+              <p className="text-[11px] sm:text-xs lg:text-sm text-slate-500 mt-1 leading-snug">Fasilitas belajar representatif</p>
             </div>
           </div>
 
           {/* Feature 2 */}
-          <div className="flex items-center gap-2.5 sm:gap-3.5 lg:px-4 p-1 sm:p-0">
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-blue-50 text-[#1d4ed8] flex items-center justify-center shrink-0 border border-blue-100">
-              <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[#1d4ed8]" />
+          <div className="flex items-center gap-3 sm:gap-4 lg:gap-5 lg:px-6 p-1 sm:p-2 lg:p-0">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl sm:rounded-2xl bg-blue-50 text-[#1d4ed8] flex items-center justify-center shrink-0 border border-blue-100/80 shadow-xs">
+              <Users className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-[#1d4ed8]" />
             </div>
             <div className="min-w-0">
-              <h4 className="text-[11px] sm:text-xs font-black text-slate-900 leading-tight truncate sm:overflow-visible">Guru Berdedikasi</h4>
-              <p className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5 truncate">Pendidik teladan &amp; kompeten</p>
+              <h4 className="text-xs sm:text-sm lg:text-base font-extrabold text-slate-900 leading-tight">Guru Berdedikasi</h4>
+              <p className="text-[11px] sm:text-xs lg:text-sm text-slate-500 mt-1 leading-snug">Pendidik teladan &amp; kompeten</p>
             </div>
           </div>
 
           {/* Feature 3 */}
-          <div className="flex items-center gap-2.5 sm:gap-3.5 lg:px-4 p-1 sm:p-0">
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-blue-50 text-[#1d4ed8] flex items-center justify-center shrink-0 border border-blue-100">
-              <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#1d4ed8]" />
+          <div className="flex items-center gap-3 sm:gap-4 lg:gap-5 lg:px-6 p-1 sm:p-2 lg:p-0">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl sm:rounded-2xl bg-blue-50 text-[#1d4ed8] flex items-center justify-center shrink-0 border border-blue-100/80 shadow-xs">
+              <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-[#1d4ed8]" />
             </div>
             <div className="min-w-0">
-              <h4 className="text-[11px] sm:text-xs font-black text-slate-900 leading-tight truncate sm:overflow-visible">Ramah Anak</h4>
-              <p className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5 truncate">Lingkungan aman &amp; asri</p>
+              <h4 className="text-xs sm:text-sm lg:text-base font-extrabold text-slate-900 leading-tight">Ramah Anak</h4>
+              <p className="text-[11px] sm:text-xs lg:text-sm text-slate-500 mt-1 leading-snug">Lingkungan aman &amp; asri</p>
             </div>
           </div>
 
           {/* Feature 4 */}
-          <div className="flex items-center gap-2.5 sm:gap-3.5 lg:px-4 p-1 sm:p-0">
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-blue-50 text-[#1d4ed8] flex items-center justify-center shrink-0 border border-blue-100">
-              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#1d4ed8]" />
+          <div className="flex items-center gap-3 sm:gap-4 lg:gap-5 lg:px-6 p-1 sm:p-2 lg:p-0">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl sm:rounded-2xl bg-blue-50 text-[#1d4ed8] flex items-center justify-center shrink-0 border border-blue-100/80 shadow-xs">
+              <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-[#1d4ed8]" />
             </div>
             <div className="min-w-0">
-              <h4 className="text-[11px] sm:text-xs font-black text-slate-900 leading-tight truncate sm:overflow-visible">Pendidikan Holistik</h4>
-              <p className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5 truncate">Religi &amp; karakter budi pekerti</p>
+              <h4 className="text-xs sm:text-sm lg:text-base font-extrabold text-slate-900 leading-tight">Pendidikan Holistik</h4>
+              <p className="text-[11px] sm:text-xs lg:text-sm text-slate-500 mt-1 leading-snug">Religi &amp; karakter budi pekerti</p>
             </div>
           </div>
         </div>

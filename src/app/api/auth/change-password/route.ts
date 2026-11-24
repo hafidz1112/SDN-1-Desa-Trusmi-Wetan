@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession, verifyPassword, hashPassword } from '@/lib/auth';
 import { getDb, initDb } from '@/lib/db';
 import { logAudit } from '@/lib/audit';
+import { containsSqlInjection, validatePassword } from '@/lib/security';
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,11 +11,24 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: 'Tidak terautentikasi' }, { status: 401 });
     }
 
-    const body = await req.json();
+    const body = await req.json().catch(() => null);
+    if (!body || typeof body !== 'object') {
+      return NextResponse.json({ success: false, message: 'Format data tidak valid' }, { status: 400 });
+    }
+
     const { old_password, new_password, confirm_password } = body;
 
     if (!old_password || !new_password || !confirm_password) {
       return NextResponse.json({ success: false, message: 'Semua kolom kata sandi wajib diisi' }, { status: 400 });
+    }
+
+    if (containsSqlInjection(old_password) || containsSqlInjection(new_password) || containsSqlInjection(confirm_password)) {
+      return NextResponse.json({ success: false, message: 'Pola tidak sah terdeteksi pada input' }, { status: 400 });
+    }
+
+    const newPwdValidation = validatePassword(new_password);
+    if (!newPwdValidation.isValid) {
+      return NextResponse.json({ success: false, message: newPwdValidation.error || 'Format kata sandi baru tidak valid' }, { status: 400 });
     }
 
     if (new_password !== confirm_password) {
