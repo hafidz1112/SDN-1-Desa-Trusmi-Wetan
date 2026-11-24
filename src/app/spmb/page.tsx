@@ -60,36 +60,36 @@ export default async function SpmbPage() {
   const isOpen = settings.status_pendaftaran === 'dibuka';
 
   return (
-    <div className="py-12 sm:py-16 space-y-12">
+    <div className="py-8 sm:py-16 space-y-8 sm:space-y-12">
       {/* Header Banner */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#0f3b7a] rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden border border-blue-800/40">
+        <div className="bg-[#0f3b7a] rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-12 text-white shadow-xl relative overflow-hidden border border-blue-800/40">
           <div className="absolute right-0 bottom-0 opacity-10 translate-x-12 translate-y-12 pointer-events-none">
             <GraduationCap className="w-96 h-96" />
           </div>
 
-          <div className="relative z-10 max-w-3xl space-y-5">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold bg-white/10 backdrop-blur-md border border-white/20">
+          <div className="relative z-10 max-w-3xl space-y-4 sm:space-y-5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-bold bg-white/10 backdrop-blur-md border border-white/20">
               <span className={`w-2.5 h-2.5 rounded-full ${isOpen ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`} />
               <span>Status SPMB: {isOpen ? 'PENDAFTARAN DIBUKA' : 'PENDAFTARAN DITUTUP'}</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-black font-serif tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black font-serif tracking-tight leading-tight">
               Sistem Penerimaan Murid Baru (SPMB)
             </h1>
 
-            <p className="text-blue-100/90 text-sm sm:text-base leading-relaxed">
+            <p className="text-blue-100/90 text-xs sm:text-base leading-relaxed">
               {settings.teks_pengantar ||
                 'Selamat datang di portal informasi resmi penerimaan peserta didik baru SDN 1 Trusmi Wetan. Seluruh proses pendaftaran tidak dipungut biaya (gratis).'}
             </p>
 
-            <div className="pt-2 flex flex-wrap gap-3">
+            <div className="pt-2 flex flex-col sm:flex-row gap-3">
               {contact.whatsapp && (
                 <a
                   href={`https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-black text-xs shadow-md transition-all cursor-pointer uppercase tracking-wider"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-3 rounded-xl font-black text-xs shadow-md transition-all cursor-pointer uppercase tracking-wider text-center"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>Konsultasi Panitia via WhatsApp</span>
@@ -97,7 +97,7 @@ export default async function SpmbPage() {
               )}
               <Link
                 href="/hubungi-kami"
-                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-5 py-2.5 rounded-xl font-bold text-xs transition-all uppercase tracking-wider"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-5 py-3 rounded-xl font-bold text-xs transition-all uppercase tracking-wider text-center"
               >
                 <Clock className="w-4 h-4" />
                 <span>Lihat Jam Pelayanan</span>

@@ -28,19 +28,19 @@ export default async function GaleriPage() {
   const { albums, items } = await getGalleryData();
 
   return (
-    <div className="py-12 sm:py-16 space-y-10">
+    <div className="py-8 sm:py-16 space-y-8 sm:space-y-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm">
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 border border-slate-200/90 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
             <span className="h-0.5 w-6 bg-amber-500 inline-block" />
             <span className="text-xs font-bold tracking-widest text-[#1d4ed8] uppercase">
               DOKUMENTASI VISUAL
             </span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0f3b7a] tracking-tight">
+          <h1 className="text-xl sm:text-3xl md:text-4xl font-black font-serif text-[#0f3b7a] tracking-tight">
             Galeri Kegiatan Sekolah
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-2 max-w-2xl">
+          <p className="text-xs sm:text-sm text-slate-500 mt-2 max-w-2xl leading-relaxed">
             Momen-momen berharga dalam kegiatan belajar mengajar, upacara, perlombaan, dan ragam kreativitas siswa SDN 1 Trusmi Wetan.
           </p>
         </div>

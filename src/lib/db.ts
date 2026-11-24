@@ -65,10 +65,17 @@ export async function initDb() {
       akreditasi TEXT DEFAULT 'A',
       alamat TEXT DEFAULT 'Desa Trusmi Wetan, Kec. Plered, Kabupaten Cirebon, Jawa Barat 45154',
       maps_url TEXT DEFAULT 'https://maps.google.com/?q=SDN+1+Trusmi+Wetan+Cirebon',
+      logo_media_id INTEGER,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       updated_at TEXT DEFAULT CURRENT_TIMESTAMP
     );
   `);
+
+  try {
+    await db.execute('ALTER TABLE school_identity ADD COLUMN logo_media_id INTEGER;');
+  } catch {
+    // Column already exists or table freshly created
+  }
 
   await db.execute(`
     CREATE TABLE IF NOT EXISTS operating_hours (
@@ -108,6 +115,49 @@ export async function initDb() {
       stat_guru INTEGER DEFAULT 16,
       stat_rombel INTEGER DEFAULT 12,
       stat_prestasi INTEGER DEFAULT 20,
+      academic_badge TEXT DEFAULT 'AKADEMIK & KEUNGGULAN',
+      academic_title TEXT DEFAULT 'Belajar, Berkembang, Berprestasi.',
+      academic_media_id INTEGER,
+      academic_card_title TEXT DEFAULT 'Pendidikan Karakter Holistik',
+      academic_card_subtitle TEXT DEFAULT 'Religi • Prestasi • Budi Pekerti',
+      academic_features TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+    );
+  `);
+
+  try {
+    await db.execute('ALTER TABLE site_settings ADD COLUMN academic_badge TEXT DEFAULT "AKADEMIK & KEUNGGULAN";');
+  } catch {}
+  try {
+    await db.execute('ALTER TABLE site_settings ADD COLUMN academic_title TEXT DEFAULT "Belajar, Berkembang, Berprestasi.";');
+  } catch {}
+  try {
+    await db.execute('ALTER TABLE site_settings ADD COLUMN academic_media_id INTEGER;');
+  } catch {}
+  try {
+    await db.execute('ALTER TABLE site_settings ADD COLUMN academic_card_title TEXT DEFAULT "Pendidikan Karakter Holistik";');
+  } catch {}
+  try {
+    await db.execute('ALTER TABLE site_settings ADD COLUMN academic_card_subtitle TEXT DEFAULT "Religi • Prestasi • Budi Pekerti";');
+  } catch {}
+  try {
+    await db.execute('ALTER TABLE site_settings ADD COLUMN academic_features TEXT;');
+  } catch {}
+
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS hero_slides (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      badge TEXT,
+      title TEXT NOT NULL,
+      subtitle TEXT,
+      primary_btn_text TEXT DEFAULT 'PENDAFTARAN SPMB',
+      primary_btn_href TEXT DEFAULT '/spmb',
+      secondary_btn_text TEXT DEFAULT 'JELAJAHI PROFIL',
+      secondary_btn_href TEXT DEFAULT '/profil',
+      media_id INTEGER,
+      urutan INTEGER DEFAULT 0,
+      status TEXT DEFAULT 'terbit',
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       updated_at TEXT DEFAULT CURRENT_TIMESTAMP
     );
@@ -388,6 +438,68 @@ export async function initDb() {
         312, 16, 12, 20
       );
     `);
+  }
+
+  const slidesCheck = await db.execute('SELECT COUNT(*) as cnt FROM hero_slides');
+  if (Number(slidesCheck.rows[0].cnt) === 0) {
+    const currentSettings = await db.execute('SELECT hero_title, hero_subtitle, hero_media_id FROM site_settings LIMIT 1');
+    const s1 = currentSettings.rows[0];
+    const s1Title = (s1?.hero_title as string) || 'Membentuk Generasi Cerdas, Berkarakter & Berprestasi';
+    const s1Subtitle =
+      (s1?.hero_subtitle as string) ||
+      'Di SDN 1 Trusmi Wetan, kami membina generasi muda yang berakhlak mulia, cerdas, berprestasi, dan berwawasan lingkungan melalui kurikulum yang menginspirasi.';
+    const s1MediaId = (s1?.hero_media_id as number) || null;
+
+    await db.execute({
+      sql: `INSERT INTO hero_slides (badge, title, subtitle, primary_btn_text, primary_btn_href, secondary_btn_text, secondary_btn_href, media_id, urutan, status)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      args: [
+        'Sekolah Dasar Negeri Unggulan & Berkarakter',
+        s1Title,
+        s1Subtitle,
+        'PENDAFTARAN SPMB',
+        '/spmb',
+        'JELAJAHI PROFIL',
+        '/profil',
+        s1MediaId,
+        1,
+        'terbit',
+      ],
+    });
+
+    await db.execute({
+      sql: `INSERT INTO hero_slides (badge, title, subtitle, primary_btn_text, primary_btn_href, secondary_btn_text, secondary_btn_href, media_id, urutan, status)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      args: [
+        'Penerimaan Peserta Didik Baru (SPMB 2026/2027)',
+        'Pintu Gerbang Menuju Masa Depan Anak Gemilang',
+        'Pendidikan dasar holistik dengan bimbingan pendidik tersertifikasi serta sarana prasarana ramah anak yang siap mendampingi tumbuh kembang anak didik.',
+        'INFORMASI SPMB',
+        '/spmb',
+        'LIHAT FASILITAS',
+        '/sarana-prasarana',
+        null,
+        2,
+        'terbit',
+      ],
+    });
+
+    await db.execute({
+      sql: `INSERT INTO hero_slides (badge, title, subtitle, primary_btn_text, primary_btn_href, secondary_btn_text, secondary_btn_href, media_id, urutan, status)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      args: [
+        'Terakreditasi A • Kemendikbudristek RI',
+        'Mengukir Prestasi, Menumbuhkan Budi Pekerti',
+        'Aktif mencetak insan unggul di bidang akademik, keagamaan, dan seni kreasi dengan lingkungan belajar yang asri, aman, dan kondusif.',
+        'LIHAT PRESTASI',
+        '/prestasi',
+        'HUBUNGI KAMI',
+        '/hubungi-kami',
+        null,
+        3,
+        'terbit',
+      ],
+    });
   }
 
   const contactCheck = await db.execute('SELECT COUNT(*) as cnt FROM contact_info');
@@ -671,11 +783,25 @@ export async function initDb() {
   initialized = true;
 }
 
+function toPlainObject<T>(obj: T): T {
+  if (obj === null || typeof obj !== 'object') {
+    return (typeof obj === 'bigint' ? Number(obj) : obj) as T;
+  }
+  if (Array.isArray(obj)) {
+    return obj.map(toPlainObject) as unknown as T;
+  }
+  const plain: Record<string, any> = {};
+  for (const key of Object.keys(obj as any)) {
+    plain[key] = toPlainObject((obj as any)[key]);
+  }
+  return plain as T;
+}
+
 export async function query<T = any>(sql: string, args: any[] = []): Promise<T[]> {
   await initDb();
   const db = getDb();
   const res = await db.execute({ sql, args });
-  return (res.rows || []) as unknown as T[];
+  return toPlainObject(res.rows || []) as unknown as T[];
 }
 
 export async function queryOne<T = any>(sql: string, args: any[] = []): Promise<T | null> {

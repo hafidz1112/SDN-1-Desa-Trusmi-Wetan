@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getDb, initDb } from '@/lib/db';
 import { getSession } from '@/lib/auth';
 import { logAudit } from '@/lib/audit';
@@ -13,7 +14,12 @@ export async function GET(req: NextRequest) {
     const result: Record<string, any> = {};
 
     if (type === 'all' || type === 'identity') {
-      const res = await db.execute('SELECT * FROM school_identity LIMIT 1');
+      const res = await db.execute(`
+        SELECT s.*, m.file_path as logo_url
+        FROM school_identity s
+        LEFT JOIN media m ON s.logo_media_id = m.id
+        LIMIT 1
+      `);
       result.identity = res.rows[0] || null;
     }
 
@@ -38,12 +44,22 @@ export async function GET(req: NextRequest) {
     if (type === 'all' || type === 'beranda') {
       const res = await db.execute(`
         SELECT s.*,
-          m.file_path as hero_media_url
+          m.file_path as hero_media_url,
+          m2.file_path as academic_media_url
         FROM site_settings s
         LEFT JOIN media m ON s.hero_media_id = m.id
+        LEFT JOIN media m2 ON s.academic_media_id = m2.id
         LIMIT 1
       `);
       result.beranda = res.rows[0] || null;
+
+      const slidesRes = await db.execute(`
+        SELECT s.*, m.file_path as bg_image
+        FROM hero_slides s
+        LEFT JOIN media m ON s.media_id = m.id
+        ORDER BY s.urutan ASC, s.id ASC
+      `);
+      result.hero_slides = slidesRes.rows;
     }
 
     if (type === 'all' || type === 'contact') {
@@ -93,6 +109,7 @@ export async function PUT(req: NextRequest) {
           akreditasi = ?,
           alamat = ?,
           maps_url = ?,
+          logo_media_id = ?,
           updated_at = CURRENT_TIMESTAMP
           WHERE id = (SELECT id FROM school_identity LIMIT 1)`,
         args: [
@@ -102,9 +119,13 @@ export async function PUT(req: NextRequest) {
           data.akreditasi || null,
           data.alamat || null,
           data.maps_url || null,
+          data.logo_media_id || null,
         ],
       });
-      await logAudit('ubah', 'Identitas Sekolah', undefined, 'Memperbarui identitas sekolah');
+      await logAudit('ubah', 'Identitas Sekolah', undefined, 'Memperbarui identitas dan logo sekolah');
+      revalidatePath('/', 'layout');
+      revalidatePath('/');
+      revalidatePath('/identitas');
     } else if (type === 'operating_hours') {
       // Validate hours: if not libur, jam_tutup must be after jam_buka (FR-ADM-016)
       for (const h of data) {
@@ -166,6 +187,12 @@ export async function PUT(req: NextRequest) {
           stat_guru = ?,
           stat_rombel = ?,
           stat_prestasi = ?,
+          academic_badge = ?,
+          academic_title = ?,
+          academic_media_id = ?,
+          academic_card_title = ?,
+          academic_card_subtitle = ?,
+          academic_features = ?,
           updated_at = CURRENT_TIMESTAMP
           WHERE id = (SELECT id FROM site_settings LIMIT 1)`,
         args: [
@@ -177,9 +204,88 @@ export async function PUT(req: NextRequest) {
           data.stat_guru ?? null,
           data.stat_rombel ?? null,
           data.stat_prestasi ?? null,
+          data.academic_badge || 'AKADEMIK & KEUNGGULAN',
+          data.academic_title || 'Belajar, Berkembang, Berprestasi.',
+          data.academic_media_id ? Number(data.academic_media_id) : null,
+          data.academic_card_title || 'Pendidikan Karakter Holistik',
+          data.academic_card_subtitle || 'Religi • Prestasi • Budi Pekerti',
+          typeof data.academic_features === 'string'
+            ? data.academic_features
+            : JSON.stringify(data.academic_features || []),
         ],
       });
-      await logAudit('ubah', 'Beranda', undefined, 'Memperbarui banner dan statistik beranda');
+
+      if (Array.isArray(data.slides)) {
+        const keepIds: number[] = [];
+        for (let i = 0; i < data.slides.length; i++) {
+          const slide = data.slides[i];
+          const urutan = i + 1;
+          const mediaId = slide.media_id ? Number(slide.media_id) : null;
+          if (slide.id) {
+            await db.execute({
+              sql: `UPDATE hero_slides SET
+                badge = ?,
+                title = ?,
+                subtitle = ?,
+                primary_btn_text = ?,
+                primary_btn_href = ?,
+                secondary_btn_text = ?,
+                secondary_btn_href = ?,
+                media_id = ?,
+                urutan = ?,
+                status = ?,
+                updated_at = CURRENT_TIMESTAMP
+                WHERE id = ?`,
+              args: [
+                slide.badge || null,
+                slide.title || '',
+                slide.subtitle || null,
+                slide.primary_btn_text || 'PENDAFTARAN SPMB',
+                slide.primary_btn_href || '/spmb',
+                slide.secondary_btn_text || 'JELAJAHI PROFIL',
+                slide.secondary_btn_href || '/profil',
+                mediaId,
+                urutan,
+                slide.status || 'terbit',
+                slide.id,
+              ],
+            });
+            keepIds.push(Number(slide.id));
+          } else {
+            const insertRes = await db.execute({
+              sql: `INSERT INTO hero_slides (badge, title, subtitle, primary_btn_text, primary_btn_href, secondary_btn_text, secondary_btn_href, media_id, urutan, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+              args: [
+                slide.badge || null,
+                slide.title || '',
+                slide.subtitle || null,
+                slide.primary_btn_text || 'PENDAFTARAN SPMB',
+                slide.primary_btn_href || '/spmb',
+                slide.secondary_btn_text || 'JELAJAHI PROFIL',
+                slide.secondary_btn_href || '/profil',
+                mediaId,
+                urutan,
+                slide.status || 'terbit',
+              ],
+            });
+            if (insertRes.lastInsertRowid) {
+              keepIds.push(Number(insertRes.lastInsertRowid));
+            }
+          }
+        }
+
+        if (keepIds.length > 0) {
+          const placeholders = keepIds.map(() => '?').join(',');
+          await db.execute({
+            sql: `DELETE FROM hero_slides WHERE id NOT IN (${placeholders})`,
+            args: keepIds,
+          });
+        }
+      }
+
+      await logAudit('ubah', 'Beranda', undefined, 'Memperbarui banner slide dan statistik beranda');
+      revalidatePath('/', 'layout');
+      revalidatePath('/');
     } else if (type === 'contact') {
       await db.execute({
         sql: `UPDATE contact_info SET

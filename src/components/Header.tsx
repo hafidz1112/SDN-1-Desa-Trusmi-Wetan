@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import ImageWithFallback from '@/components/ImageWithFallback';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, Mail, MapPin, GraduationCap, UserCheck } from 'lucide-react';
 
@@ -10,8 +10,26 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [akademikOpen, setAkademikOpen] = useState(false);
   const [akademikDesktopOpen, setAkademikDesktopOpen] = useState(false);
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
+  const [namaSekolah, setNamaSekolah] = useState('SDN 1 TRUSMI WETAN');
   const akademikRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+
+  useEffect(() => {
+    fetch('/api/settings?type=identity')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.success && data.data?.identity) {
+          if (data.data.identity.logo_url) {
+            setLogoUrl(data.data.identity.logo_url);
+          }
+          if (data.data.identity.nama_sekolah) {
+            setNamaSekolah(data.data.identity.nama_sekolah);
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     if (!akademikDesktopOpen) return;
@@ -32,10 +50,10 @@ export default function Header() {
   return (
     <header className="w-full bg-white shadow-sm sticky top-0 z-50">
       {/* Top Utility Bar: Primary Navy Blue */}
-      <div className="bg-[#0f3b7a] text-blue-100 text-[11px] py-2 px-4 border-b border-blue-950/40">
-        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+      <div className="bg-[#0f3b7a] text-blue-100 text-[10px] sm:text-[11px] py-1.5 sm:py-2 px-3 sm:px-4 border-b border-blue-950/40">
+        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-1.5 sm:gap-2">
           {/* Left contact info: Kepala Sekolah & Email & Location */}
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-6">
             <span className="flex items-center gap-1.5 text-blue-50 font-medium">
               <UserCheck className="w-3.5 h-3.5 text-amber-400 shrink-0" />
               <span>Kepala Sekolah: Hj. Marpuah, S.Pd.</span>
@@ -54,17 +72,17 @@ export default function Header() {
           </div>
 
           {/* Right utility links */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             <Link
               href="/admin/login"
-              className="text-blue-200 hover:text-amber-300 font-medium transition-colors text-[11px]"
+              className="text-blue-200 hover:text-amber-300 font-medium transition-colors text-[10px] sm:text-[11px]"
             >
               Portal Admin
             </Link>
             <span className="text-blue-400/40">|</span>
             <Link
               href="/spmb"
-              className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold px-3 py-1 rounded-md text-[11px] tracking-wider uppercase transition-colors shadow-xs"
+              className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-md text-[10px] sm:text-[11px] tracking-wider uppercase transition-colors shadow-xs"
             >
               SPMB 2026/2027
             </Link>
@@ -74,24 +92,24 @@ export default function Header() {
 
       {/* Main Navbar: White Background with Primary Blue Typography */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo & School Name */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="relative w-12 h-12 flex-shrink-0">
-              <Image
-                src="/images/logo.svg"
-                alt="Logo SDN 1 Trusmi Wetan"
-                width={48}
-                height={48}
-                className="object-contain"
+          <Link href="/" className="flex items-center space-x-2.5 sm:space-x-3 group min-w-0">
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 bg-white rounded-xl p-1 shadow-xs border border-slate-100 flex items-center justify-center overflow-hidden">
+              <ImageWithFallback
+                src={logoUrl || '/images/logo.svg'}
+                fallbackSrc="/images/logo.svg"
+                alt={`Logo ${namaSekolah}`}
+                fill
+                className="object-contain p-0.5"
                 priority
               />
             </div>
-            <div>
-              <span className="block text-xl font-black text-[#0f3b7a] tracking-tight group-hover:text-blue-700 transition-colors font-serif leading-none">
-                SDN 1 TRUSMI WETAN
+            <div className="min-w-0">
+              <span className="block text-base sm:text-xl font-black text-[#0f3b7a] tracking-tight group-hover:text-blue-700 transition-colors font-serif leading-tight truncate sm:overflow-visible">
+                {namaSekolah}
               </span>
-              <span className="block text-[11px] font-semibold text-slate-500 tracking-wider uppercase mt-1">
+              <span className="block text-[10px] sm:text-[11px] font-semibold text-slate-500 tracking-wider uppercase mt-0.5 sm:mt-1 truncate">
                 Kec. Plered • Kab. Cirebon
               </span>
             </div>

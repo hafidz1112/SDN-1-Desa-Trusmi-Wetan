@@ -33,18 +33,18 @@ export default async function DetailKegiatanPage({ params }: DetailKegiatanProps
   }
 
   return (
-    <div className="py-12 sm:py-16">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm">
+    <div className="py-8 sm:py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 border border-slate-200/90 shadow-sm">
           <Link
             href="/kegiatan"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1d4ed8] hover:underline mb-6 uppercase tracking-wider"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1d4ed8] hover:underline mb-4 sm:mb-6 uppercase tracking-wider"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Kembali ke Daftar Kegiatan</span>
           </Link>
 
-          <div className="flex flex-wrap items-center gap-3 mb-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3">
             {item.tanggal && (
               <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-500">
                 <Calendar className="w-3.5 h-3.5 text-amber-500" />
@@ -58,13 +58,13 @@ export default async function DetailKegiatanPage({ params }: DetailKegiatanProps
             )}
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0f3b7a] leading-tight">
+          <h1 className="text-xl sm:text-3xl md:text-4xl font-black font-serif text-[#0f3b7a] leading-tight">
             {item.judul}
           </h1>
         </div>
 
         {/* Featured Photo */}
-        <div className="relative w-full h-80 sm:h-[420px] rounded-3xl overflow-hidden shadow-md bg-slate-100 border border-slate-200">
+        <div className="relative w-full h-56 sm:h-80 md:h-[420px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-md bg-slate-100 border border-slate-200">
           <ImageWithFallback
             src={item.foto_url}
             alt={item.judul}
@@ -75,8 +75,8 @@ export default async function DetailKegiatanPage({ params }: DetailKegiatanProps
         </div>
 
         {/* Full Description */}
-        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm">
-          <div className="prose prose-slate max-w-none text-sm sm:text-base leading-relaxed text-slate-700 whitespace-pre-line">
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 border border-slate-200 shadow-sm">
+          <div className="prose prose-slate max-w-none text-sm sm:text-base leading-relaxed text-slate-700 whitespace-pre-line text-left">
             {item.deskripsi || 'Belum ada rincian deskripsi tambahan untuk kegiatan ini.'}
           </div>
         </div>

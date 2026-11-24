@@ -40,9 +40,9 @@ export default async function PrestasiPage({ searchParams }: PrestasiPageProps) 
   const items = await query(dataSql, [...args, limit, offset]);
 
   return (
-    <div className="py-12 sm:py-16 space-y-12">
+    <div className="py-8 sm:py-16 space-y-8 sm:space-y-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 border border-slate-200/90 shadow-sm flex flex-col sm:flex-row sm:items-end justify-between gap-5 sm:gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="h-0.5 w-6 bg-amber-500 inline-block" />
@@ -50,16 +50,16 @@ export default async function PrestasiPage({ searchParams }: PrestasiPageProps) 
                 ETALASE KEJUARAAN
               </span>
             </div>
-            <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0f3b7a] tracking-tight">
+            <h1 className="text-xl sm:text-3xl md:text-4xl font-black font-serif text-[#0f3b7a] tracking-tight">
               Prestasi Siswa &amp; Sekolah
             </h1>
-            <p className="text-xs sm:text-sm text-slate-500 mt-2 max-w-2xl">
+            <p className="text-xs sm:text-sm text-slate-500 mt-2 max-w-2xl leading-relaxed">
               Daftar pencapaian akademik dan non-akademik peserta didik SDN 1 Trusmi Wetan di berbagai ajang kompetisi.
             </p>
           </div>
 
           {/* Filter Level */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 shrink-0">
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 shrink-0 max-w-full">
             <Link
               href="/prestasi"
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-colors ${

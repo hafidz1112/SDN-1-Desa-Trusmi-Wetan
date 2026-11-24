@@ -36,20 +36,20 @@ export default async function HubungiKamiPage() {
   const waClean = contact.whatsapp ? contact.whatsapp.replace(/[^0-9]/g, '') : '';
 
   return (
-    <div className="py-12 sm:py-16 space-y-12">
+    <div className="py-8 sm:py-16 space-y-8 sm:space-y-12">
       {/* Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm">
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 border border-slate-200/90 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
             <span className="h-0.5 w-6 bg-amber-500 inline-block" />
             <span className="text-xs font-bold tracking-widest text-[#1d4ed8] uppercase">
               LAYANAN &amp; KOMUNIKASI
             </span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0f3b7a] tracking-tight">
+          <h1 className="text-xl sm:text-3xl md:text-4xl font-black font-serif text-[#0f3b7a] tracking-tight">
             Hubungi SDN 1 Trusmi Wetan
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-2 max-w-2xl">
+          <p className="text-xs sm:text-sm text-slate-500 mt-2 max-w-2xl leading-relaxed">
             Pusat layanan informasi resmi, konsultasi pendidikan, dan jadwal operasional kelembagaan sekolah.
           </p>
         </div>

@@ -29,20 +29,20 @@ export default async function ProfilPage() {
   const { profile, missions } = await getProfileData();
 
   return (
-    <div className="py-12 sm:py-16 space-y-16">
+    <div className="py-8 sm:py-16 space-y-10 sm:space-y-16">
       {/* Page Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm">
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 border border-slate-200/90 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
             <span className="h-0.5 w-6 bg-amber-500 inline-block" />
             <span className="text-xs font-bold tracking-widest text-[#1d4ed8] uppercase">
               PROFIL LEMBAGA
             </span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-black font-serif text-[#0f3b7a] tracking-tight">
+          <h1 className="text-xl sm:text-3xl md:text-4xl font-black font-serif text-[#0f3b7a] tracking-tight">
             Profil SDN 1 Trusmi Wetan
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-2 max-w-2xl">
+          <p className="text-xs sm:text-sm text-slate-500 mt-2 max-w-2xl leading-relaxed">
             Mengenal lebih dekat pimpinan sekolah, sejarah berdiri, serta landasan visi, misi, dan tujuan pendidikan kami.
           </p>
         </div>
@@ -50,9 +50,9 @@ export default async function ProfilPage() {
 
       {/* Sambutan Kepala Sekolah (FR-PUB-018) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-12 border border-slate-200 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-start">
           <div className="lg:col-span-4 flex flex-col items-center">
-            <div className="relative w-64 h-80 rounded-2xl overflow-hidden shadow-md border-4 border-slate-100 bg-slate-50">
+            <div className="relative w-48 h-64 sm:w-64 sm:h-80 rounded-2xl overflow-hidden shadow-md border-4 border-slate-100 bg-slate-50">
               <ImageWithFallback
                 src={profile?.foto_kepsek_url}
                 alt={profile?.nama_kepala_sekolah || 'Kepala Sekolah'}
@@ -94,15 +94,15 @@ export default async function ProfilPage() {
               <Compass className="w-4 h-4" />
               <span>Visi Sekolah</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-snug">
+            <h2 className="text-xl sm:text-3xl font-extrabold text-slate-900 leading-snug">
               &ldquo;{profile?.visi || 'Terwujudnya Peserta Didik yang Berakhlak Mulia, Cerdas, Berprestasi, dan Berwawasan Lingkungan.'}&rdquo;
             </h2>
           </div>
 
           {/* Misi & Tujuan */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {/* Misi */}
-            <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm space-y-5">
+            <div className="bg-white rounded-2xl p-5 sm:p-8 border border-slate-200 shadow-sm space-y-5">
               <div className="flex items-center gap-2 text-blue-700 font-bold text-base">
                 <Target className="w-5 h-5" />
                 <h3>Misi Sekolah</h3>
@@ -124,7 +124,7 @@ export default async function ProfilPage() {
             </div>
 
             {/* Tujuan */}
-            <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm space-y-5">
+            <div className="bg-white rounded-2xl p-5 sm:p-8 border border-slate-200 shadow-sm space-y-5">
               <div className="flex items-center gap-2 text-indigo-700 font-bold text-base">
                 <BookOpen className="w-5 h-5" />
                 <h3>Tujuan Pendidikan</h3>
@@ -139,13 +139,13 @@ export default async function ProfilPage() {
 
       {/* Sejarah Singkat (FR-PUB-020) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-12 border border-slate-200 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
           <div className="lg:col-span-7 space-y-4">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-800 text-xs font-bold rounded-full">
               <Clock className="w-3.5 h-3.5" />
               <span>Sejarah Singkat</span>
             </div>
-            <h2 className="text-2xl font-bold text-slate-900">
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
               Perjalanan Panjang Pengabdian bagi Generasi Trusmi Wetan
             </h2>
             <div className="text-sm sm:text-base text-slate-600 leading-relaxed whitespace-pre-line">

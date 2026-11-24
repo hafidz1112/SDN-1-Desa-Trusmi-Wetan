@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import ImageWithFallback from '@/components/ImageWithFallback';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
@@ -28,6 +28,7 @@ import {
   History,
   LogOut,
   ExternalLink,
+  X,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -37,6 +38,18 @@ interface SidebarProps {
 export default function AdminSidebar({ onCloseMobile }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch('/api/settings?type=identity')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.success && data.data?.identity?.logo_url) {
+          setLogoUrl(data.data.identity.logo_url);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const handleLogout = async () => {
     if (confirm('Yakin ingin keluar dari dashboard admin?')) {
@@ -93,14 +106,16 @@ export default function AdminSidebar({ onCloseMobile }: SidebarProps) {
     <aside className="w-64 bg-slate-900 text-slate-300 flex flex-col h-screen border-r border-slate-800">
       {/* Brand header */}
       <div className="p-4 border-b border-slate-800 flex items-center justify-between">
-        <Link href="/admin" className="flex items-center space-x-2.5">
-          <Image
-            src="/images/logo.svg"
-            alt="Logo"
-            width={36}
-            height={36}
-            className="object-contain"
-          />
+        <Link href="/admin" onClick={onCloseMobile} className="flex items-center space-x-3">
+          <div className="w-10 h-10 relative flex-shrink-0 bg-white rounded-xl p-1.5 shadow-sm border border-slate-700/60 flex items-center justify-center overflow-hidden">
+            <ImageWithFallback
+              src={logoUrl || '/images/logo.svg'}
+              fallbackSrc="/images/logo.svg"
+              alt="Logo"
+              fill
+              className="object-contain p-0.5"
+            />
+          </div>
           <div>
             <span className="block font-bold text-white text-sm leading-tight">
               ADMIN PANEL
@@ -110,6 +125,16 @@ export default function AdminSidebar({ onCloseMobile }: SidebarProps) {
             </span>
           </div>
         </Link>
+        {onCloseMobile && (
+          <button
+            type="button"
+            onClick={onCloseMobile}
+            className="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            aria-label="Tutup Menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        )}
       </div>
 
       {/* Navigation list */}

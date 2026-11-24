@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getDb, initDb } from '@/lib/db';
 import { getSession } from '@/lib/auth';
 import { logAudit } from '@/lib/audit';
@@ -128,6 +129,10 @@ export async function POST(req: NextRequest) {
     const newId = Number(insertRes.lastInsertRowid);
     await logAudit('tambah', 'Kegiatan', newId, `Menambah kegiatan: ${judul}`);
 
+    revalidatePath('/kegiatan');
+    revalidatePath('/kegiatan/[slug]', 'page');
+    revalidatePath('/');
+
     return NextResponse.json({ success: true, message: 'Data berhasil disimpan.', id: newId });
   } catch (error) {
     console.error('Activities POST error:', error);
@@ -177,6 +182,11 @@ export async function PUT(req: NextRequest) {
     });
 
     await logAudit('ubah', 'Kegiatan', id, `Mengubah kegiatan: ${judul}`);
+
+    revalidatePath('/kegiatan');
+    revalidatePath('/kegiatan/[slug]', 'page');
+    revalidatePath('/');
+
     return NextResponse.json({ success: true, message: 'Data berhasil disimpan.' });
   } catch (error) {
     console.error('Activities PUT error:', error);
@@ -205,6 +215,10 @@ export async function DELETE(req: NextRequest) {
 
     await db.execute({ sql: 'DELETE FROM activities WHERE id = ?', args: [id] });
     await logAudit('hapus', 'Kegiatan', Number(id), `Menghapus kegiatan: ${judul}`);
+
+    revalidatePath('/kegiatan');
+    revalidatePath('/kegiatan/[slug]', 'page');
+    revalidatePath('/');
 
     return NextResponse.json({ success: true, message: 'Data berhasil dihapus.' });
   } catch (error) {
